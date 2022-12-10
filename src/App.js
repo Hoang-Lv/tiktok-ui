@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Fragment } from 'react';
 import './App.css';
 import { PublicRoute } from './router';
@@ -6,7 +6,7 @@ import { DefaultLayout } from './layouts';
 import Modal from './components/Modal';
 
 function App() {
-    return (
+    return ~(
         <Router>
             <Modal />
             <Routes>
