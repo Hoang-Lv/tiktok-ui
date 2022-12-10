@@ -1,0 +1,225 @@
+.profile-header {
+    max-width: 624px;
+    margin-bottom: 20px;
+    position: relative;
+    .user-info {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        img {
+            width: 116px;
+            height: 116px;
+        }
+        .user-info_wrap {
+            flex: 1;
+            margin-left: 20px;
+            .nickname-wrap {
+                display: flex;
+                align-items: center;
+                .user-nickname {
+                    font-weight: 700;
+                    font-size: 32px;
+                    line-height: 38px;
+                    padding-bottom: 4px;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    text-align: left;
+                }
+                span {
+                    color: #20d5ec;
+                    font-size: 2.5rem;
+                    margin-left: 7px;
+                }
+            }
+            .user-fullname {
+                font-weight: 600;
+                font-size: 18px;
+                line-height: 25px;
+                text-overflow: ellipsis;
+                height: 25px;
+                overflow: hidden;
+                max-width: 450px;
+                white-space: nowrap;
+            }
+            .follow-state {
+                height: 36px;
+                padding: 0px;
+                margin: 16px 0px 0px;
+                font-size: 1.8rem;
+                line-height: 2.5rem;
+                font-weight: 600;
+                .follow-state--wrap {
+                    display: flex;
+                    justify-content: flex-start;
+                    align-items: center;
+                    .unfollow {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        width: 36px;
+                        height: 36px;
+                        margin-left: 10px;
+
+                        border: 1px solid #e3e3e4;
+                        border-radius: 5px;
+                        cursor: pointer;
+                        button {
+                            margin-left: 0;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .count-info {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        margin: 20px 0;
+        div {
+            margin-right: 20px;
+
+            strong {
+                font-size: 18px;
+                line-height: 25px;
+            }
+            span {
+                color: rgba(22, 24, 35, 0.75);
+                font-weight: 400;
+                font-size: 16px;
+                line-height: 22px;
+                display: inline-block;
+                margin-left: 6px;
+            }
+        }
+    }
+    .user-bio {
+        text-align: left;
+        color: rgb(22, 24, 35);
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 22px;
+        white-space: pre-line;
+        margin-top: 10px;
+    }
+    .user-links {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 22px;
+        cursor: pointer;
+        &:hover {
+            text-decoration: underline;
+        }
+        .link-icon {
+            font-size: 1.8rem;
+        }
+        .link-path {
+            margin-left: 5px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+    }
+    .header-icons {
+        position: absolute;
+        right: 12px;
+        top: 11px;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        cursor: pointer;
+        .more-icon {
+            margin-left: 16px;
+        }
+    }
+}
+
+.tippy-share,
+.tippy-more_action {
+    position: relative;
+    &::before {
+        content: '';
+        display: inline-block;
+        position: absolute;
+        top: -19px;
+        right: 24px;
+        border-width: 10px 10px;
+        border-color: transparent transparent white transparent;
+        border-style: solid;
+    }
+}
+.tippy-share_wrap {
+    display: flex;
+    flex-direction: column;
+    width: 280px;
+    max-height: 448px;
+    padding: 8px 0;
+    font-size: 1.6rem;
+    font-weight: 600;
+    line-height: 2.2rem;
+    overflow: auto;
+    .share-item {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        padding: 11px 16px;
+        cursor: pointer;
+        .share-title {
+            margin-left: 12px;
+        }
+        &:hover {
+            background: rgba(22, 24, 35, 0.03);
+        }
+    }
+    .more-btn {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 2.2rem;
+        cursor: pointer;
+        &:hover {
+            background: rgba(22, 24, 35, 0.03);
+        }
+    }
+}
+.tippy-more_action-wrap {
+    display: flex;
+    flex-direction: column;
+    width: 180px;
+    max-height: 162px;
+    padding: 8px 0;
+    font-size: 1.6rem;
+    font-weight: 600;
+    line-height: 2.2rem;
+    overflow: auto;
+    .more-item {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        padding: 0 16px;
+        cursor: pointer;
+        .more-item_link {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            width: 100%;
+            padding: 13px 0;
+            border-bottom: 1px solid rgba(22, 24, 35, 0.12);
+            .more-tite {
+                flex: 1;
+                margin-left: 12px;
+                white-space: nowrap;
+            }
+        }
+
+        &:hover {
+            background: rgba(22, 24, 35, 0.03);
+        }
+    }
+    .more-item:last-child .more-item_link {
+        border: none;
+    }
+}

@@ -1,0 +1,229 @@
+.content-item_link {
+    width: fit-content;
+    height: fit-content;
+    .item-avatar {
+        width: 56px;
+        height: 56px;
+        object-fit: cover;
+        border-radius: 50%;
+    }
+}
+.video-wrap {
+    flex: 1;
+    margin-left: 12px;
+    .video-header {
+        .author-name {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            .full-name {
+                margin-right: 4px;
+                font-weight: 700;
+                font-size: 1.8rem;
+                line-height: 2.5rem;
+                display: inline-block;
+            }
+            .check {
+                display: flex;
+                color: #20d5ec;
+                font-size: 1.8rem;
+                margin-right: 5px;
+            }
+            .nick-name {
+                font-weight: 400;
+                font-size: 1.4rem;
+                line-height: 2.5rem;
+                display: inline-block;
+            }
+        }
+        .video-description {
+            width: 80%;
+            font-size: 1.6rem;
+            line-height: 2.2rem;
+        }
+        .video-music {
+            font-weight: 600;
+            font-size: 1.6rem;
+            line-height: 2.2rem;
+            margin-top: 4px;
+            margin-bottom: 12px;
+        }
+    }
+    .video-play {
+        display: flex;
+        justify-content: flex-start;
+        width: fit-content;
+
+        .video {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            border-radius: 10px;
+            margin-right: 25px;
+            .video-link {
+                display: flex;
+                align-items: center;
+                width: 100%;
+                height: 100%;
+                position: relative;
+                -webkit-user-drag: none;
+                video {
+                    width: 100%;
+                    height: 100%;
+                }
+                .controler {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    width: 100%;
+                    height: 30px;
+                    position: absolute;
+                    bottom: 30px;
+                    left: 0;
+                    color: var(--white-color);
+                    font-size: 2rem;
+                    .play-btn {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        margin-left: 20px;
+                        width: 40px;
+                        height: 40px;
+                        transition: opacity 0.1s linear;
+                        opacity: 0;
+                    }
+                    .mute-btn {
+                        width: 40px;
+                        height: 40px;
+                        transition: opacity 0.1s linear;
+                        margin-right: 20px;
+                        position: relative;
+                        opacity: 0;
+                        .volume-state {
+                            transform: scale(1.2);
+                            display: flex;
+                        }
+                        .range_volume-wrap {
+                            display: flex;
+                            align-items: center;
+                            position: absolute;
+                            top: -65px;
+                            left: 50%;
+                            height: 30px;
+                            padding: 10px;
+                            background-color: rgba(0, 0, 0, 0.225);
+                            border-radius: 20px;
+                            transform: translateX(-50%) rotate(270deg);
+                            transition: opacity 0.1s linear;
+                            opacity: 0;
+                            input {
+                                width: 70px;
+                                appearance: none;
+                                background-color: rgba(93, 93, 93, 0.596);
+                                height: 2px;
+                                &::-webkit-slider-thumb {
+                                    -webkit-appearance: none;
+                                    appearance: none;
+                                    width: 14px;
+                                    height: 14px;
+                                    background-color: white;
+                                    border-radius: 50%;
+                                }
+                            }
+                        }
+                        &:hover .range_volume-wrap {
+                            opacity: 1;
+                        }
+                    }
+                }
+                &:hover .play-btn,
+                &:hover .mute-btn {
+                    opacity: 1;
+                }
+            }
+        }
+        .video-interactive {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+
+            .action-wrap {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                cursor: pointer;
+
+                span {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    min-width: 48px;
+                    min-height: 48px;
+                    margin-top: 8px;
+                    margin-bottom: 6px;
+                    border-radius: 50%;
+                    font-size: 2.2rem;
+                    background-color: rgba(22, 24, 35, 0.06);
+                }
+                @keyframes backgroundPopper {
+                    0% {
+                        background-color: rgba(22, 24, 35, 0.06);
+                    }
+                    50% {
+                        background-color: rgba(22, 24, 35, 0.193);
+                    }
+                    100% {
+                        background-color: rgba(22, 24, 35, 0.06);
+                    }
+                }
+                @keyframes popper {
+                    0% {
+                        opacity: 0;
+                        transform: scale(0.8);
+                    }
+                    35% {
+                        opacity: 1;
+                        transform: scale(1.2);
+                    }
+                    70% {
+                        opacity: 1;
+                        transform: scale(0.8);
+                    }
+                    100% {
+                        opacity: 1;
+                        transform: scale(1);
+                    }
+                }
+
+                p {
+                    color: rgba(22, 24, 35, 0.75);
+                    font-weight: 700;
+                    font-size: 1.2rem;
+                    line-height: 1.7rem;
+                }
+            }
+            .heart {
+                .heart-icon {
+                    padding-top: 2px;
+
+                    &.active {
+                        animation: backgroundPopper 1s ease;
+                        svg {
+                            animation: popper 1s ease;
+                            color: var(--primary-color);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+.follow-btn {
+    position: absolute;
+    top: 28px;
+    right: 0;
+}

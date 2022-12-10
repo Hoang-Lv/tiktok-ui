@@ -1,0 +1,22 @@
+.menu {
+    width: 100%;
+    margin-bottom: 8px;
+}
+
+@media (max-width: 1050px) {
+    .title {
+        display: none;
+    }
+    .menu {
+        position: relative;
+        &::after {
+            content: '';
+            position: absolute;
+            left: 8px;
+            right: 8px;
+            bottom: 0;
+            height: 1px;
+            background: rgba(22, 24, 35, 0.12);
+        }
+    }
+}

@@ -1,0 +1,115 @@
+.header_search {
+    --border-radius: 96px;
+    --btn-width: 52px;
+    --search-height: 46px;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 361px;
+    max-width: 361px;
+    height: var(--search-height);
+    background-color: #f1f1f2;
+    border: 1px solid transparent;
+    border-radius: var(--border-radius);
+    input {
+        flex: 1;
+        height: 100%;
+        padding: 0 45px 0 18px;
+        background-color: transparent;
+        font-size: 1.6rem;
+        font-family: var(--font-family);
+        caret-color: var(--primary-color);
+        &:not(:placeholder-shown) ~ .search_btn {
+            color: var(--text-color);
+        }
+    }
+    &::after {
+        content: '';
+        position: absolute;
+        right: var(--btn-width);
+        top: 50%;
+        transform: translateY(-50%);
+        width: 1px;
+        height: calc(var(--search-height) - 18px);
+        background-color: #d7d7d9;
+    }
+    &:focus-within {
+        border-color: #c5c6c9;
+    }
+}
+.clear_icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 15px;
+    height: 15px;
+    background-color: #a6a7ab;
+    color: white;
+    font-size: 1.1rem;
+    border-radius: 50%;
+}
+.loading_icon {
+    padding-top: 2px;
+    color: #a6a7ab;
+    animation: Rotate 2s cubic-bezier(0.25, 1.05, 1, 1) infinite;
+}
+
+@keyframes Rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.clear_icon,
+.loading_icon {
+    position: absolute;
+    right: var(--btn-width);
+    margin-right: 15px;
+}
+
+.search_btn {
+    width: 52px;
+    height: 100%;
+    padding: 3px 3px 0 0;
+    border-top-right-radius: var(--border-radius);
+    border-bottom-right-radius: var(--border-radius);
+    font-size: 1.9rem;
+    color: #a6a7ab;
+    cursor: pointer;
+    &:hover {
+        background-color: #ebebeb;
+    }
+    &:active {
+        background-color: #e4e4e6;
+    }
+}
+
+.popper_wrapper {
+    width: 361px;
+    max-height: calc(100vh - 96px);
+    padding: 10px 0;
+    overflow-y: scroll;
+}
+.popper_wrapper__account {
+    height: 30px;
+    padding: 5px 12px;
+
+    font-size: 1.5rem;
+    line-height: 2rem;
+    font-weight: 600;
+    color: rgba(22, 24, 35, 0.5);
+    &::-webkit-scrollbar {
+        width: 5px;
+    }
+    &::-webkit-scrollbar-track {
+        background-color: #fafafa;
+    }
+    &::-webkit-scrollbar-thumb {
+        background-color: var(--primary-color);
+        border-radius: 3px;
+    }
+}

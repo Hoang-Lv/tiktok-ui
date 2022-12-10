@@ -1,0 +1,41 @@
+.menu-item {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    height: 48px;
+    padding: 8px;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+    color: var(--text-color);
+    cursor: pointer;
+    &.active {
+        color: var(--primary-color);
+        .icon {
+            display: none;
+        }
+        .solid-icon {
+            display: block;
+        }
+    }
+    &:hover {
+        background-color: rgba(22, 24, 35, 0.03);
+    }
+    .title {
+        font-size: 1.8rem;
+        font-weight: 700;
+        line-height: 2.5rem;
+        margin-left: 8px;
+    }
+    .solid-icon {
+        display: none;
+    }
+}
+@media (max-width: 1050px) {
+    .title {
+        display: none;
+    }
+    .menu-item {
+        justify-content: center;
+    }
+}

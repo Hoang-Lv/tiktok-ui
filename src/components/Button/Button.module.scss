@@ -1,0 +1,97 @@
+.Button_Component {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 28px;
+    font-weight: 700;
+    font-size: 1.6rem;
+    line-height: 2.2rem;
+    color: var(--text-color);
+    cursor: pointer;
+    background-color: var(--white-color);
+    border: 1px solid transparent;
+    &.Button_Component {
+    }
+    span {
+        display: flex;
+        align-items: center;
+    }
+}
+.basic_style {
+    margin-right: 16px;
+    padding: 6px 17.5px;
+    border-radius: 2px;
+    border-color: rgba(22, 24, 35, 0.12);
+    &:hover {
+        background-color: rgba(22, 24, 35, 0.03);
+    }
+}
+.basic_style-following {
+    font-size: 1.6rem;
+    font-weight: 600;
+    border-radius: 2px;
+    color: #181a25;
+    border-color: rgba(22, 24, 35, 0.12);
+    &:hover {
+        background-color: rgba(22, 24, 35, 0.03);
+    }
+}
+.primary-color_style {
+    min-height: 36px;
+    padding: 6px 8px;
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    border-radius: 4px;
+    &:hover {
+        background-color: #f02a51;
+    }
+}
+.round-basic_style {
+    padding: 0 8px;
+    font-size: 1.4rem;
+    font-weight: 700;
+    line-height: 3rem;
+    border: 1px solid #e3e3e4;
+    border-radius: 56px;
+    &:hover {
+        border-color: #d0d1d3;
+    }
+}
+.primary-color--border_style {
+    padding: 0.5px 8px 0 8px;
+    font-size: 1.6rem;
+    line-height: 2.2rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    background-color: var(--white-color);
+    border: 1px solid var(--primary-color);
+    border-radius: 4px;
+    cursor: pointer;
+    &:hover {
+        background-color: #fff4f5;
+    }
+}
+.simple_style {
+    width: 32px;
+    height: 32px;
+    font-size: 2.6rem;
+    margin-left: 16px;
+}
+.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    user-select: none;
+}
+.icon + span,
+span + .icon {
+    margin-left: 11px;
+}
+.follow-size {
+    min-width: 106px;
+    min-height: 34px;
+}
+.profile-size {
+    min-width: 208px;
+    min-height: 36px;
+    font-size: 1.7rem;
+}

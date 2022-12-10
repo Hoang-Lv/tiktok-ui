@@ -1,0 +1,122 @@
+.email {
+    margin-bottom: 9px;
+    position: relative;
+    input {
+        border-radius: 2px;
+        background-color: rgba(22, 24, 35, 0.06);
+        border: 1px solid rgba(22, 24, 35, 0.12);
+        padding-inline-start: 12px;
+        color: rgb(22, 24, 35);
+        line-height: 100%;
+        outline: none;
+        font-size: 16px;
+        height: 44px;
+        caret-color: rgb(254, 44, 85);
+        width: 100%;
+        padding-inline-end: unset;
+    }
+    .password-icon {
+        right: 0px;
+        display: flex;
+        -webkit-box-align: center;
+        align-items: center;
+        position: absolute;
+        top: 0px;
+        height: 44px;
+        font-size: 20px;
+        padding-inline-end: 16px;
+        cursor: pointer;
+    }
+}
+.error-mesage {
+    font-size: 12px;
+    line-height: 15px;
+    margin: 4px 0px;
+    color: rgb(255, 76, 58);
+    display: flex;
+}
+.error-icon {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-45%);
+    color: var(--primary-color);
+    font-size: 1.4rem;
+}
+.password-warning {
+    margin: 15px 0 9px;
+}
+
+.warning-header {
+    font-size: 1.4rem;
+    line-height: 1.5rem;
+    color: rgb(22, 24, 35);
+    font-weight: 600;
+    margin: 4px 0px;
+}
+
+.warning-item {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.warning-icon {
+    display: flex;
+    align-items: center;
+    font-size: 10px;
+    margin-right: 5px;
+    color: rgba(22, 24, 35, 0.5);
+}
+.warning-title {
+    font-size: 12px;
+    line-height: 15px;
+    margin: 4px 0px;
+    color: rgba(22, 24, 35, 0.5);
+}
+.error-mesage {
+    font-size: 12px;
+    line-height: 15px;
+    margin: 4px 0px;
+    color: rgb(255, 76, 58);
+    display: flex;
+}
+.error-icon {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-45%);
+    color: var(--primary-color);
+    font-size: 1.4rem;
+}
+.password-warning {
+    margin-top: 15px;
+}
+
+.warning-header {
+    font-size: 1.4rem;
+    line-height: 1.5rem;
+    color: rgb(22, 24, 35);
+    font-weight: 600;
+    margin: 4px 0px;
+}
+
+.warning-item {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.warning-icon {
+    display: flex;
+    align-items: center;
+    font-size: 10px;
+    margin-right: 5px;
+    color: rgba(22, 24, 35, 0.5);
+}
+.warning-title {
+    font-size: 12px;
+    line-height: 15px;
+    margin: 4px 0px;
+    color: rgba(22, 24, 35, 0.5);
+}

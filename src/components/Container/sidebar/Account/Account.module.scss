@@ -1,0 +1,83 @@
+.account {
+    position: relative;
+    padding: 16px 0;
+    color: rgba(22, 24, 35, 0.75);
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 20px;
+    .title {
+        padding: 0 8px;
+        margin-bottom: 8px;
+        font-size: 1.4rem;
+        line-height: 2rem;
+    }
+    .account-wrapper.discovery {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        padding-top: 8px;
+        .discovery-acc_item {
+            margin: 0 10px 12px 0;
+            max-width: 100%;
+            width: fit-content;
+            height: 24px;
+            padding: 0 10px;
+            color: rgba(22, 24, 35, 0.75);
+            font-size: 1.4rem;
+            font-weight: 400;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            background-color: var(--white-color);
+            border: 1px solid rgba(22, 24, 35, 0.2);
+            border-radius: 12px;
+            transition: background-color 0.2s linear;
+            &:hover {
+                background-color: rgba(22, 24, 35, 0.03);
+            }
+        }
+    }
+    .see-all {
+        padding: 0 8px;
+        margin-top: 8px;
+        font-size: 1.4rem;
+        line-height: 2rem;
+        color: var(--primary-color);
+        cursor: pointer;
+    }
+    &.discovery {
+        position: relative;
+        box-sizing: border-box;
+        width: 100%;
+        padding: 16px 8px 8px;
+    }
+    &::before {
+        content: '';
+        position: absolute;
+        left: 8px;
+        right: 8px;
+        top: 0;
+        height: 1px;
+        background: rgba(22, 24, 35, 0.12);
+    }
+}
+@media (max-width: 1050px) {
+    .account {
+        &::before {
+            content: '';
+            height: 0;
+        }
+    }
+    .title,
+    .see-all,
+    .account-wrapper a div,
+    .account-wrapper.discovery {
+        display: none !important;
+    }
+    .account-wrapper a {
+        justify-content: center;
+        img {
+            margin-right: 0 !important;
+        }
+    }
+}

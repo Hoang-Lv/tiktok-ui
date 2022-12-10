@@ -1,0 +1,16 @@
+.home-content {
+    height: 100%;
+    width: 692px;
+    max-width: 100%;
+    padding-top: 20px;
+    flex: 1;
+    overflow: hidden;
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
+@media (max-width: 1150px) {
+    .home-content {
+        padding-left: 30px;
+    }
+}

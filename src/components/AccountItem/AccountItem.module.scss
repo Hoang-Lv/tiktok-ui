@@ -1,0 +1,168 @@
+.wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    .name_wrap {
+        flex: 1;
+        span {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 0;
+            h4 {
+                max-width: 230px;
+                display: block;
+                margin: 0;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                color: var(--text-color);
+            }
+            span {
+                color: #20d5ec;
+                font-size: 1.8rem;
+            }
+        }
+        p {
+            max-width: 230px;
+            margin: 0;
+            color: rgba(22, 24, 35, 0.5);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+    }
+    &.big {
+        margin: 12px 0;
+        padding: 9px 16px;
+        height: 52px;
+    }
+    &.small {
+        margin: 0;
+        padding: 8px;
+    }
+    &.big img {
+        min-width: 40px;
+        width: 40px;
+        min-height: 40px;
+        height: 40px;
+        margin-right: 15px;
+    }
+    &.small img {
+        min-width: 32px;
+        width: 32px;
+        min-height: 32px;
+        height: 32px;
+        margin-right: 12px;
+    }
+    &:hover {
+        background-color: #f8f8f8;
+        border-radius: 4px;
+    }
+    &.big .name_wrap {
+        span {
+            h4 {
+                font-size: 1.6rem;
+                line-height: 1.8rem;
+                font-weight: 600;
+            }
+            span {
+                margin-left: 8px;
+            }
+        }
+        p {
+            font-size: 1.4rem;
+            line-height: 2rem;
+            font-weight: 400;
+        }
+    }
+    &.small .name_wrap {
+        height: 32px;
+        span {
+            max-width: 164px;
+            h4 {
+                margin-top: -2px;
+                font-size: 1.6rem;
+                line-height: 2rem;
+                font-weight: 700;
+            }
+            span {
+                margin-left: 5px;
+            }
+        }
+        p {
+            font-size: 1.2rem;
+            line-height: 1.5rem;
+            font-weight: 400;
+            color: #161823bf;
+        }
+    }
+}
+.tippy-wrap {
+    position: relative;
+    width: 320px;
+    box-sizing: border-box;
+    padding: 20px;
+    .tippy-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 12px;
+        img {
+            width: 44px;
+            height: 44px;
+            cursor: pointer;
+        }
+    }
+    .use-card_fullname {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 0;
+        line-height: 2.3rem;
+        h4 {
+            font-size: 1.8rem;
+            max-width: 260px;
+            display: block;
+            margin: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            color: var(--text-color);
+        }
+        span {
+            display: flex;
+            align-items: center;
+            color: #20d5ec;
+            font-size: 1.8rem;
+            margin-left: 4px;
+        }
+    }
+    .use-card_nickname {
+        display: block;
+        color: rgba(22, 24, 35, 1);
+        font-weight: 600;
+        font-size: 1.3rem;
+        line-height: 1.8rem;
+    }
+    .user-star {
+        margin-top: 11px;
+        font-size: 1.7rem;
+        line-height: 2rem;
+        padding: 1px 0;
+        .follower-count,
+        .like-count {
+            font-weight: 700;
+            margin-right: 6px;
+            color: var(--text-color);
+        }
+        .follower,
+        .liked {
+            font-weight: 400;
+            margin-right: 6px;
+        }
+    }
+}

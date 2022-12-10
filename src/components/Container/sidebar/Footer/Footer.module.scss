@@ -1,0 +1,43 @@
+.footer-wrap {
+    position: relative;
+    padding: 16px 0 0 8px;
+    .link-wrap {
+        margin-bottom: 8px;
+        a {
+            display: inline-block;
+            font-weight: 600;
+            font-size: 1.2rem;
+            line-height: 1.7rem;
+            color: rgba(22, 24, 35, 0.5);
+            margin-right: 6px;
+            margin-top: 5px;
+        }
+    }
+    .more-link {
+        margin-bottom: 8px;
+        font-weight: 600;
+        font-size: 1.2rem;
+        line-height: 1.7rem;
+        color: rgba(22, 24, 35, 0.5);
+    }
+    & > span {
+        font-weight: 600;
+        font-size: 1.2rem;
+        line-height: 1.7rem;
+        color: rgba(22, 24, 35, 0.5);
+    }
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 8px;
+        left: 8px;
+        height: 1px;
+        background: rgba(22, 24, 35, 0.12);
+    }
+}
+@media (max-width: 1050px) {
+    .footer-wrap {
+        display: none;
+    }
+}

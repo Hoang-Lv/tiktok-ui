@@ -1,0 +1,13 @@
+// tạo đường dẫn tắt cho ngắn gọn hơn khi import
+{
+    "plugins": [
+        [
+            "module-resolver",
+            {
+                "alias": {
+                    "~": "./src"
+                }
+            }
+        ]
+    ]
+}

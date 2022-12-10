@@ -1,0 +1,65 @@
+.select-wrap {
+    background: rgba(22, 24, 35, 0.06);
+    border-radius: 4px;
+    position: relative;
+    cursor: pointer;
+    .selector {
+        width: 120px;
+        height: 44px;
+        padding: 0px 12px;
+        display: flex;
+        -webkit-box-pack: justify;
+        justify-content: space-between;
+        -webkit-box-align: center;
+        align-items: center;
+        color: rgba(22, 24, 35, 0.34);
+        font-size: 16px;
+        .selector-icon {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            color: rgb(22, 24, 35);
+            transform: rotateZ(0deg);
+            transition: all 0.3s ease 0s;
+        }
+    }
+}
+.popper_wrapper {
+    display: block;
+    width: 120px;
+    max-height: 320px;
+    overflow: auto;
+
+    background: rgb(255, 255, 255);
+    border-radius: 4px;
+    box-shadow: rgb(0 0 0 / 12%) 0px 2px 12px;
+
+    z-index: 12;
+    transition: display 0.3s ease 0s;
+    .popper-item {
+        height: 34px;
+        overflow: auto;
+        font-size: 16px;
+        padding: 0px 12px;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        -webkit-box-align: center;
+        align-items: center;
+        color: rgb(22, 24, 35);
+        background: unset;
+        .month {
+        }
+        .check {
+            display: flex;
+            font-size: 1.4rem;
+        }
+        &:hover {
+            background: rgba(22, 24, 35, 0.03);
+        }
+    }
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}

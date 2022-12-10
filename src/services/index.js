@@ -1,0 +1,16 @@
+export { default as search } from './SearchUsers';
+export { default as GetUser } from './GetUser';
+export { default as SuggestedAcc } from './SuggestedAcc';
+export { default as ForYouVideos } from './ForYouVideos';
+export { default as register } from './Register';
+export { default as updateUser } from './UpdateUser';
+export { default as Login } from './Login';
+export { default as Follow } from './Follow';
+export { default as Followings } from './Followings';
+export { default as LikePost } from './LikePost';
+export { default as GetComment } from './GetComment';
+export { default as GetaVideo } from './GetaVideo';
+export { default as LikeAComment } from './LikeAComment';
+export { default as CreateAComment } from './CreateAComment';
+export { default as DeleteAComment } from './DeleteAComment';
+export { default as GetUsersVideos } from './GetUsersVideos';

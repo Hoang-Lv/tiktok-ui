@@ -1,0 +1,9 @@
+.container {
+    width: 1150px;
+    height: 100vh;
+    margin: 0 auto;
+    padding-top: var(--header-height);
+    display: flex;
+    justify-content: space-between;
+    overflow: hidden;
+}

@@ -1,0 +1,143 @@
+.loading-animation {
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
+    margin-top: 10px;
+    height: 30px;
+    max-width: 20px;
+    min-width: 20px;
+    position: relative;
+    div {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+    }
+
+    .red {
+        position: absolute;
+        top: 0;
+        background-color: #fe2c56c6;
+        animation: rotate 0.5s linear infinite;
+    }
+    .green {
+        position: absolute;
+        top: 0;
+        background-color: rgba(0, 251, 255, 0.742);
+        animation: rotate 0.5s linear infinite;
+        animation-delay: 0.25s;
+    }
+    .new-red {
+        position: absolute;
+        top: 0;
+        background-color: #fd3e3ec3;
+        animation: rotate 1s linear infinite;
+    }
+    .new-green {
+        position: absolute;
+        top: 0;
+        background-color: #4de8f4;
+        animation: rotate 1s linear infinite;
+        animation-delay: 0.5s;
+    }
+    .green:last-child {
+        animation: handleHidden 0.5s linear infinite;
+        animation-delay: 0.25s;
+    }
+    @keyframes handleHidden {
+        0% {
+            left: 0%;
+            opacity: 1;
+            transform: scale(0.8);
+        }
+        25% {
+            transform: scale(1);
+        }
+        49% {
+            left: 99.9%;
+            opacity: 1;
+            transform: scale(0.8);
+        }
+        50% {
+            left: 100%;
+            opacity: 0;
+            transform: scale(0.8);
+        }
+        51% {
+            left: 100%;
+            opacity: 0;
+            transform: scale(0.8);
+        }
+        74% {
+            transform: scale(0.7);
+        }
+        75% {
+            transform: scale(0.7);
+        }
+        76% {
+            transform: scale(0.7);
+        }
+        98% {
+            left: 1.1%;
+            opacity: 0;
+            transform: scale(0.77);
+        }
+        99% {
+            left: 1.1%;
+            opacity: 0;
+            transform: scale(0.8);
+        }
+        100% {
+            left: 1%;
+            opacity: 0.95;
+            transform: scale(0.8);
+        }
+    }
+    @keyframes rotate {
+        0% {
+            left: 0%;
+            transform: scale(0.8);
+        }
+        24% {
+            transform: scale(1);
+        }
+        25% {
+            transform: scale(1);
+        }
+        26% {
+            transform: scale(1);
+        }
+        49% {
+            left: 100%;
+            transform: scale(0.8);
+        }
+        50% {
+            left: 100%;
+            transform: scale(0.8);
+        }
+        51% {
+            left: 100%;
+            transform: scale(0.8);
+        }
+        74% {
+            transform: scale(0.7);
+        }
+        75% {
+            transform: scale(0.7);
+        }
+        76% {
+            transform: scale(0.7);
+        }
+        98% {
+            left: 1%;
+            transform: scale(0.78);
+        }
+        99% {
+            left: 1%;
+            transform: scale(0.8);
+        }
+        100% {
+            left: 0%;
+            transform: scale(0.8);
+        }
+    }
+}
