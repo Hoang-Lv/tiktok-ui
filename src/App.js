@@ -6,7 +6,7 @@ import { DefaultLayout } from './layouts';
 import Modal from './components/Modal';
 
 function App() {
-    return ~(
+    return (
         <Router>
             <Modal />
             <Routes>

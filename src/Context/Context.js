@@ -2,7 +2,7 @@ import { createContext, useState } from 'react';
 export const ContextProfile = createContext();
 function Context({ children }) {
     const [state, setState] = useState(true);
-    const [isMe, setIsMe] = useState(false);
+    // const [isMe, setIsMe] = useState(false);
     const [isLogin, setIsLogin] = useState(false);
     const [loginPopper, setLoginPopper] = useState(false);
     const [token, setToken] = useState('');
