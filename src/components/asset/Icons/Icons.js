@@ -62,6 +62,7 @@ const Icons = {
     Lock: () => <HiLockClosed />,
     Link: () => <BiLink />,
     Music: () => <IoMusicalNotesSharp />,
+    
     Tag({ className, width = '2.6rem', height = '2.6rem' }) {
         return (
             <svg

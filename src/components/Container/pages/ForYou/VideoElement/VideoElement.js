@@ -51,6 +51,7 @@ function VideoElement({
                 ref.current?.pause();
             }, 300);
         }
+        // eslint-disable-next-line
     }, [state]);
     useEffect(() => {
         ref.current.volume = volume;
@@ -81,7 +82,7 @@ function VideoElement({
         setVolume(value);
         localStorage.setItem('vol', value);
         ref.current.volume = volume;
-        if (value == 0) setMuted(true);
+        if (value === 0) setMuted(true);
         else setMuted(false);
     };
     const handleSubmitAcc = (data) => {
@@ -154,7 +155,7 @@ function VideoElement({
                 <div className={cx('video-play')}>
                     <div
                         className={cx('video')}
-                        style={height >= width ? { maxHeight: 485, height: 485 } : { maxWidth: 464, width: 464 }}
+                        style={height >= width ? { maxHeight: 520, height: 520 } : { maxWidth: 520, width: 520 }}
                     >
                         <Link to={`${config.routes.video}${data.uuid}`} className={cx('video-link')}>
                             <video
@@ -236,7 +237,7 @@ function VideoElement({
                         </Link>
                         <div className={cx('share', 'action-wrap')}>
                             <span>
-                                <Icons.ShareSolid />
+                                <Icons.Share />
                             </span>
                             <p className={cx('count')}>{shares_count}</p>
                         </div>

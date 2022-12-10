@@ -44,22 +44,21 @@ function Profiles() {
             setPage(1);
         }
     }, [nickName]);
-    console.log(page);
     return (
         <div
             className={cx('profile')}
             onScroll={(e) => {
                 const list = e.target;
-                const listTop = list.scrollTop;
+                const listTop = list.offsetHeight;
                 const heightResult = list.children[1].clientHeight + list.children[0].clientHeight;
-                console.log(listTop + 60 + list.clientHeight - list.children[0].clientHeight, heightResult);
-                // if (listTop - 46 === heightResult / 2) {
-                //     setPage((prev) => prev + 1);
-                // }
+                const result = heightResult - (list.offsetHeight + list.scrollTop - 104);
+                if (result == 0) {
+                    setPage((prev) => prev + 1);
+                }
             }}
         >
             <Header myProf={myProf} profile={data} />
-            <Container myProf={myProf} profile={data} page={page} />
+            <Container myProf={myProf} profile={data} page={page} setPage={setPage} />
             {showLoading ? <ShowLoading /> : ''}
         </div>
     );

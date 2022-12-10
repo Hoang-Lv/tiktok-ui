@@ -57,23 +57,28 @@ function ViewPage() {
     const timeRef = useRef();
 
     const fetchApi = async () => {
-        const pageName = currentPage.length > 0 ? currentPage : 'for-you';
-        if (direction == 'forYouVideos') {
+        setLoadMore(true);
+        if (direction === 'forYouVideos') {
+            const res = await ForYouVideos(currentPage, page, token);
+            if (res) {
+                setVideos({
+                    ...videos,
+                    videoList: [...videoList, ...res],
+                    loadPage: page,
+                });
+            }
         }
-        if (direction == 'profileVideos') {
-            // const res = await GetUsersVideos(userID, 2, token);
-            // setVideos({
-            //     ...videos,
-            //     videoList: [...videoList, ...res],
-            //     loadPage: page,
-            // });
+        if (direction === 'profileVideos') {
+            const res = await GetUsersVideos(userID, page, token);
+            if (res.length > 0) {
+                setVideos({
+                    ...videos,
+                    videoList: [...videoList, ...res],
+                    loadPage: page,
+                });
+            }
         } else {
-            const res = await ForYouVideos(pageName, page, token);
-            setVideos({
-                ...videos,
-                videoList: [...videoList, ...res],
-                loadPage: page,
-            });
+            window.location.href = 'http://localhost:4000/';
         }
         setLoadMore(false);
     };
@@ -99,7 +104,7 @@ function ViewPage() {
         if (direction === 'prev') {
             setCurrentIndex(() => (currentIndex === 0 ? 0 : currentIndex - 1));
         } else {
-            if (currentIndex === videoList.length - 2) {
+            if (currentIndex === videoList.length - 1) {
                 setPage((prev) => prev + 1);
                 setLoadMore(true);
             }
@@ -125,6 +130,7 @@ function ViewPage() {
         if (isLogin && state) {
             getData();
         }
+        // eslint-disable-next-line
     }, [isLogin]);
     useEffect(() => {
         if (loadMore || videoList.length === 0) fetchApi();
@@ -246,7 +252,7 @@ function ViewPage() {
                         <div className={cx('direction-btn')}>
                             <button
                                 className={cx('prev-btn')}
-                                style={{ opacity: currentIndex == 0 ? 'none' : '' }}
+                                style={{ opacity: currentIndex === 0 ? 'none' : '' }}
                                 onClick={(e) => handleNextVideo(e, 'prev')}
                             >
                                 <Icons.Up />

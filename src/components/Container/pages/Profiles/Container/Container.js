@@ -5,7 +5,7 @@ import Icons from '~/components/asset/Icons';
 import Videos from '../Videos';
 const cx = classNames.bind(styles);
 
-function Container({ profile, myProf, page }) {
+function Container({ profile, myProf, page, setPage }) {
     const [videoTag, setVideoTag] = useState(true);
     const [tag, setTag] = useState(0);
     return (
@@ -59,7 +59,7 @@ function Container({ profile, myProf, page }) {
                             </div>
                         </div>
                     ) : (
-                        <Videos myProf={myProf} profile={profile} page={page} />
+                        <Videos myProf={myProf} profile={profile} page={page} setPage={setPage} />
                     )}
                 </>
             ) : (

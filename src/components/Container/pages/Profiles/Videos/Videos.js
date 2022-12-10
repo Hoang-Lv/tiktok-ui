@@ -8,7 +8,7 @@ import { Consumer } from '~/Context';
 import { GetUsersVideos } from '~/services';
 
 const cx = classNames.bind(styles);
-function Videos({ profile, myProf, page }) {
+function Videos({ profile, myProf, page, setPage }) {
     const [data, setData] = useState([]);
     const [is_hover, setIs_hover] = useState(undefined);
     const [autoPlay, setAutoPlay] = useState(true);
@@ -18,29 +18,11 @@ function Videos({ profile, myProf, page }) {
     const [height, setHeight] = useState(undefined);
 
     const GetVideos = async () => {
-        // const res = await GetUsersVideos(profile.id, page);
-        // if (res) {
-        //     setData((prev) => [...prev, ...res]);
-        // }
-        setData(profile.videos);
-    };
-    console.log(page);
-    useEffect(() => {
-        if (page && profile.id) GetVideos();
-    }, [profile]);
-    useEffect(() => {
-        if (page && profile.id) {
-            console.log('is_here');
-            GetVideos();
+        const res = await GetUsersVideos(profile.id, page);
+        if (res) {
+            setData((prev) => [...prev, ...res]);
         }
-    }, [page]);
-
-    useEffect(() => {
-        const width = document.getElementById('video_wrap0');
-        window.onresize = () => {
-            setHeight(width.offsetWidth * 1.5);
-        };
-    }, [height]);
+    };
 
     const handleSubmitVideo = (data, index) => {
         setDirection('profileVideos');
@@ -49,14 +31,28 @@ function Videos({ profile, myProf, page }) {
             index,
             route: 'profiles',
             userID: profile.id,
-            page,
+            loadPage: page,
         });
         localStorage.setItem('videoSource', JSON.stringify('profileVideos'));
         localStorage.setItem('videos', JSON.stringify(data));
         localStorage.setItem('index', JSON.stringify(index));
         localStorage.setItem('route', JSON.stringify('profiles'));
     };
+    useEffect(() => {
+        if (profile.id && page) GetVideos();
+    }, [page]);
+    useEffect(() => {
+        setPage(1);
+        setData([]);
+        if (profile.id) GetVideos();
+    }, [profile]);
 
+    useEffect(() => {
+        const width = document.getElementById('video_wrap0');
+        window.onresize = () => {
+            setHeight(width.offsetWidth * 1.5);
+        };
+    }, [height]);
     const videoList = data?.map((video, index) => {
         return (
             <Link
@@ -72,7 +68,7 @@ function Videos({ profile, myProf, page }) {
                 key={index}
                 to={config.routes.video}
                 id={`video_wrap${index}`}
-                className={cx('video-item_wrap')}
+                className={cx('video-item_wrap', { 'video-item_wrap': true })}
                 style={{ height: height }}
             >
                 <div className={cx('video-item')} style={{ backgroundImage: `url("${video.thumb_url}")` }}>
