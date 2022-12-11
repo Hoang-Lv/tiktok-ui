@@ -1,5 +1,4 @@
 import { useState, useEffect, memo } from 'react';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import styles from './Account.module.scss';
@@ -14,6 +13,7 @@ function Account({ api, title, suggestedAcc, discovery, following }) {
     const consumer = Consumer();
     const [isLogin] = consumer.isLogin;
     const [token] = consumer.token;
+    const random = Math.floor(Math.random() * 5) + 1;
 
     const followingsApi = async () => {
         if (seeAll) {
@@ -25,7 +25,7 @@ function Account({ api, title, suggestedAcc, discovery, following }) {
         }
     };
     const suggestedApi = async (seeAll) => {
-        const Api = await api(1, 20);
+        const Api = await api(random, 20);
         const newApi = [];
         Api?.forEach((item, index) => {
             if (index < 6) newApi.push(item);
@@ -44,6 +44,7 @@ function Account({ api, title, suggestedAcc, discovery, following }) {
         if (isLogin && following) {
             followingsApi();
         }
+        // eslint-disable-next-line
     }, [isLogin]);
 
     useEffect(() => {
@@ -52,6 +53,7 @@ function Account({ api, title, suggestedAcc, discovery, following }) {
         } else {
             suggestedApi(seeAll);
         }
+        // eslint-disable-next-line
     }, [seeAll]);
 
     const handleSeeAll = () => {

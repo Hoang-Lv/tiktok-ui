@@ -1,1 +1,2 @@
-export { default } from './VideoElement';
+import VideoElement from './VideoElement';
+export default VideoElement;

@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import ShowLoading from '~/components/ShowLoading';
 import { ForYouVideos } from '~/services';
 import { Consumer } from '~/Context';
-import VideoElement from '../VideoElement/VideoElement';
+import VideoElement from '../VideoElement';
 import NextTop from '~/components/NextTop';
 import classname from 'classnames/bind';
 import styles from './LoadVideo.module.scss';
@@ -14,39 +13,33 @@ function InfiniteList(props) {
     const localMuted = JSON.parse(localStorage.getItem('muted'));
     const [volume, setVolume] = useState(localVolume || 0);
     const [muted, setMuted] = useState(localMuted || true);
-    const ConsumerData = Consumer();
-    const [, followingVideos] = ConsumerData.followingVideos;
-    const [, setDirection] = ConsumerData.direction;
-    const [state, setState] = ConsumerData.state;
+    const consumer = Consumer();
+    const [, setFollowingVideos] = consumer.followingVideos;
+    const [, setDirection] = consumer.direction;
+    const [state, setState] = consumer.state;
     const [loadMore, setLoadMore] = useState(props.data.length === 0);
     const [loadPage, setLoadPage] = useState(props.data.currentPage || 1);
     const [showLoading, setShowLoading] = useState(false);
     const [autoPlay, setAutoPlay] = useState(0);
     const [nextTop, setNextTop] = useState(false);
-    useEffect(() => {
-        if (props.isLogin && state) {
-            console.log('isHere');
-            props.setData([]);
-            setLoadPage(1);
-            setLoadMore(true);
-            setState(false);
-        }
-    }, [props.isLogin]);
 
     const getData = async (load) => {
         if (load) {
             setShowLoading(true);
+
             const res = await ForYouVideos('following', loadPage, props.token);
-            if (res.length > 0) {
+            console.log(res);
+            if (res?.length > 0) {
                 setShowLoading(false);
                 props.setData([...props.data, ...res]);
+                setLoadMore(false);
             }
         }
     };
 
     const handleSubmitViewPage = (data, index) => {
         setDirection('followingVideos');
-        followingVideos({
+        setFollowingVideos({
             videoList: data,
             index,
             currentPage: 'following',
@@ -55,6 +48,7 @@ function InfiniteList(props) {
         });
         localStorage.setItem('videos', JSON.stringify(data));
         localStorage.setItem('index', JSON.stringify(index));
+        localStorage.setItem('loadPage', JSON.stringify(loadPage));
         localStorage.setItem('videoSource', JSON.stringify('followingVideos'));
         localStorage.setItem('route', JSON.stringify('following'));
     };
@@ -62,17 +56,23 @@ function InfiniteList(props) {
         const el = e.target;
         const item = el.querySelectorAll('.content_item');
         if (item.length > 0) {
-            const placement = item[0]?.getBoundingClientRect();
-            const index = Math.floor(-((placement?.y - 400) / placement?.height));
-            if (autoPlay !== index) {
-                setAutoPlay(index);
+            const placement = item[0]?.getBoundingClientRect().top;
+            for (var i = 0; i < item.length; i++) {
+                const placementTop = item[i]?.getBoundingClientRect().top;
+                const placementBottom = item[i]?.getBoundingClientRect().bottom;
+
+                if (placementTop <= 310 && placementBottom >= 310) {
+                    if (autoPlay !== i) {
+                        setAutoPlay(i);
+                    }
+                }
             }
 
             if (el.scrollTop + el.clientHeight === el.scrollHeight) {
                 setLoadMore(true);
                 setLoadPage((prev) => prev + 1);
             }
-            if (placement?.y < -654) {
+            if (placement < -600) {
                 if (!nextTop) setNextTop(true);
             } else {
                 if (nextTop) setNextTop(false);
@@ -86,24 +86,46 @@ function InfiniteList(props) {
             behavior: 'smooth',
         });
     };
+    useEffect(() => {
+        const getData = async () => {
+            setShowLoading(true);
+            const newArr = [];
+            for (var i = 1; i <= loadPage; i++) {
+                const res = await ForYouVideos('following', i, props.token);
+                if (res.length > 0) newArr.push(...res);
+            }
+            props.setData(newArr);
+            setFollowingVideos((prev) => ({ ...prev, index: autoPlay }));
+            setState(false);
+        };
+        if (props.isLogin && state) {
+            props.setData([]);
+            getData();
+            setLoadMore(true);
+        }
+    }, [props.isLogin]);
 
     useEffect(() => {
         if (props.index && props.index !== 0) {
             const videoItem = document.querySelectorAll('.content_item');
-            videoItem[props.index].scrollIntoView({
-                block: 'start',
-            });
+            if (props.data.length > 0) {
+                videoItem[props.index].scrollIntoView({
+                    block: 'start',
+                });
+            }
         }
-    }, []);
+    }, [props.index]);
+
     useEffect(() => {
         getData(loadMore);
-        setLoadMore(false);
     }, [loadMore]);
-    const Video = props.data.map((users, index) => {
+    const Video = props.data.map((user, index) => {
         return (
             <div key={index} className={cx('content-item', 'content_item')}>
                 <VideoElement
-                    data={users}
+                    setData={props.setData}
+                    users={props.data}
+                    data={user}
                     index={index}
                     localVolume={localVolume}
                     volume={volume}
@@ -111,7 +133,7 @@ function InfiniteList(props) {
                     setMuted={setMuted}
                     muted={muted}
                     state={autoPlay === index}
-                    poster={users.thumb_url}
+                    poster={user.thumb_url}
                     onClick={() => {
                         handleSubmitViewPage(props.data, index);
                     }}

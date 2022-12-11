@@ -11,7 +11,20 @@ import className from 'classnames/bind';
 import styles from './VideoElement.module.scss';
 const cx = className.bind(styles);
 
-function VideoElement({ data, index, setMuted, muted, state, localVolume, volume, setVolume, poster, onClick }) {
+function VideoElement({
+    setData,
+    users,
+    data,
+    index,
+    setMuted,
+    muted,
+    state,
+    localVolume,
+    volume,
+    setVolume,
+    poster,
+    onClick,
+}) {
     const { avatar, first_name, last_name, nickname, tick, id, is_followed } = data.user;
     const { likes_count, comments_count, shares_count, is_liked, file_url } = data;
     const width = data.meta.video.resolution_x;
@@ -19,11 +32,13 @@ function VideoElement({ data, index, setMuted, muted, state, localVolume, volume
 
     const [onPlay, setOnPlay] = useState(true);
     const ref = useRef();
-    const ConsumerData = Consumer();
-    const [token] = ConsumerData.token;
-    const [, setLoginPopper] = ConsumerData.loginPopper;
-    const [, setNickName] = ConsumerData.nickName;
+    const consumer = Consumer();
+    const [token] = consumer.token;
+    const [isLogin] = consumer.isLogin;
+    const [, setLoginPopper] = consumer.loginPopper;
+    const [, setNickName] = consumer.nickName;
     const [likeState, setLikeState] = useState(is_liked);
+    const [likesCound, setLikesCound] = useState(likes_count);
     const [followState, setFollowState] = useState(is_followed);
 
     useEffect(() => {
@@ -36,6 +51,7 @@ function VideoElement({ data, index, setMuted, muted, state, localVolume, volume
                 ref.current?.pause();
             }, 300);
         }
+        // eslint-disable-next-line
     }, [state]);
     useEffect(() => {
         ref.current.volume = volume;
@@ -66,30 +82,47 @@ function VideoElement({ data, index, setMuted, muted, state, localVolume, volume
         setVolume(value);
         localStorage.setItem('vol', value);
         ref.current.volume = volume;
-        if (value == 0) setMuted(true);
+        if (value === 0) setMuted(true);
         else setMuted(false);
     };
     const handleSubmitAcc = (data) => {
+        console.log(data);
         setNickName(data.user.nickname);
         localStorage.setItem('nickname', JSON.stringify(data.user.nickname));
     };
     const handleFollow = async (id, type) => {
         setFollowState(!followState);
-
         const res = await Follow(id, type, token);
-        console.log(res);
+        const newArr = [];
+        users.forEach((item) => {
+            if (item.user_id === res.id) {
+                newArr.push({ ...item, user: { ...item.user, is_followed: res.is_followed } });
+            } else {
+                newArr.push(item);
+            }
+        });
+        setData([...newArr]);
     };
+
     const handleLike = async (id, type) => {
         setLikeState(!likeState);
-
+        const newArr = [];
         const res = await LikePost(id, type, token);
-        console.log(res);
+        users.forEach((item) => {
+            if (item.id === res.id) {
+                newArr.push({ ...res });
+            } else {
+                newArr.push(item);
+            }
+        });
+        setData([...newArr]);
     };
+
     return (
         <>
             <Link
-                to={`${config.routes.profiles}${nickname}`}
                 className={cx('content-item_link')}
+                to={`${config.routes.profiles}${nickname}`}
                 onClick={() => handleSubmitAcc(data)}
             >
                 <Avatars src={avatar} atl={nickname} width={56} height={56} />
@@ -97,8 +130,8 @@ function VideoElement({ data, index, setMuted, muted, state, localVolume, volume
             <div className={cx('video-wrap')}>
                 <div className={cx('video-header')}>
                     <Link
-                        to={`${config.routes.profiles}${nickname}`}
                         className={cx('author-name')}
+                        to={`${config.routes.profiles}${nickname}`}
                         onClick={() => handleSubmitAcc(data)}
                     >
                         <h3 className={cx('full-name')}>{`${first_name} ${last_name}`}</h3>
@@ -122,22 +155,15 @@ function VideoElement({ data, index, setMuted, muted, state, localVolume, volume
                 <div className={cx('video-play')}>
                     <div
                         className={cx('video')}
-                        style={
-                            height > width
-                                ? {}
-                                : {
-                                      background: `linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),url(${data.thumb_url}) center`,
-                                  }
-                        }
+                        style={height >= width ? { maxHeight: 520, height: 520 } : { maxWidth: 520, width: 520 }}
                     >
-                        <Link to={config.routes.video} className={cx('video-link')}>
+                        <Link to={`${config.routes.video}${data.uuid}`} className={cx('video-link')}>
                             <video
                                 id={`video-${index}`}
                                 muted={muted}
                                 ref={ref}
                                 loop
                                 poster={poster}
-                                style={height > width ? { maxHeight: 485 } : { maxWidth: '100%' }}
                                 onClick={(e) => {
                                     setOnPlay(false);
                                     onClick();
@@ -172,34 +198,46 @@ function VideoElement({ data, index, setMuted, muted, state, localVolume, volume
                         </Link>
                     </div>
                     <div className={cx('video-interactive')}>
-                        <div className={cx('heart')}>
-                            <span
-                                className={cx('heart-icon', { active: likeState })}
-                                onClick={() => {
-                                    if (token.length > 0) {
-                                        if (likeState) {
-                                            handleLike(data.id, 'unlike');
-                                        } else {
-                                            handleLike(data.id, 'like');
-                                        }
+                        <div
+                            className={cx('heart', 'action-wrap')}
+                            onClick={() => {
+                                if (token.length > 0) {
+                                    if (likeState) {
+                                        handleLike(data.id, 'unlike', token);
+                                        setLikesCound(likesCound - 1);
                                     } else {
-                                        setLoginPopper(true);
+                                        handleLike(data.id, 'like', token);
+                                        setLikesCound(likesCound + 1);
                                     }
-                                }}
-                            >
+                                } else {
+                                    setLoginPopper(true);
+                                }
+                            }}
+                        >
+                            <span className={cx('heart-icon', { active: likeState })}>
                                 <Icons.Heart />
                             </span>
-                            <p className={cx('count')}>{likes_count}</p>
+                            <p className={cx('count')}>{likesCound}</p>
                         </div>
-                        <div className={cx('comment')}>
+                        <Link
+                            className={cx('comment', 'action-wrap')}
+                            to={isLogin ? `${config.routes.video}${data.uuid}` : ''}
+                            onClick={() => {
+                                if (!isLogin) {
+                                    setLoginPopper(true);
+                                } else {
+                                    onClick();
+                                }
+                            }}
+                        >
                             <span>
                                 <Icons.Comment />
                             </span>
                             <p className={cx('count')}>{comments_count}</p>
-                        </div>
-                        <div className={cx('share')}>
+                        </Link>
+                        <div className={cx('share', 'action-wrap')}>
                             <span>
-                                <Icons.ShareSolid />
+                                <Icons.Share />
                             </span>
                             <p className={cx('count')}>{shares_count}</p>
                         </div>

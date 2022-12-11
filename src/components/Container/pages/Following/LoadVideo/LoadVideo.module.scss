@@ -1,14 +1,15 @@
 .content-list {
     height: 100%;
+    min-width: 100%;
     overflow-y: scroll;
     position: relative;
     .content-item {
         display: flex;
         justify-content: flex-start;
-        width: 692px;
-        min-height: 654px;
+
+        max-width: 100%;
         max-height: 654px;
-        padding: 20px 0;
+        padding: 20px 0 60px 0;
         position: relative;
 
         &::after {
@@ -23,7 +24,9 @@
     }
     .loading {
         min-height: 100px;
+        min-width: 100%;
         display: flex;
+        justify-content: center;
     }
     &::-webkit-scrollbar {
         display: none;

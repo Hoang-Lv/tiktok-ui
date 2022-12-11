@@ -1,5 +1,6 @@
 .content-list {
     height: 100%;
+    min-height: 10px;
     overflow-y: scroll;
     position: relative;
     .content-item {
@@ -23,7 +24,9 @@
     }
     .loading {
         min-height: 100px;
+        width: 100%;
         display: flex;
+        justify-content: center;
     }
     &::-webkit-scrollbar {
         display: none;

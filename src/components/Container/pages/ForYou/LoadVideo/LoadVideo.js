@@ -46,11 +46,11 @@ function InfiniteList(props) {
         if (load) {
             setShowLoading(true);
             const res = await ForYouVideos('for-you', loadPage, props.token);
-            console.log(loadPage);
             if (res.length > 0) {
                 setShowLoading(false);
                 props.setData([...props.data, ...res]);
             }
+            setLoadMore(false);
         }
     };
 
@@ -121,7 +121,6 @@ function InfiniteList(props) {
     }, [props.index]);
     useEffect(() => {
         getData(loadMore);
-        setLoadMore(false);
     }, [loadMore]);
     const Video = props.data.map((user, index) => {
         return (
