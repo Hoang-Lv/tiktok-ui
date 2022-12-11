@@ -23,6 +23,13 @@ function ViewPage() {
     // điều hướng đến list video khi đã có phương hướng
     const [videos, setVideos] = data[direction];
     let { videoList = [], index = 0, currentPage = '', loadPage = 1, route = '', userID } = videos;
+    if (videoList.length == 0) videoList = JSON.parse(localStorage.getItem('videos'));
+    if (!index) index = JSON.parse(localStorage.getItem('index'));
+    if (!currentPage) currentPage = JSON.parse(localStorage.getItem('videoSource'));
+    if (!loadPage) loadPage = JSON.parse(localStorage.getItem('loadPage'));
+    if (!route) route = JSON.parse(localStorage.getItem('route'));
+    if (!userID) userID = JSON.parse(localStorage.getItem('userID'));
+
     // Lấy nickName được lưu trong context nhằm getUser
     let [nickName] = data.nickName;
     if (!nickName) nickName = JSON.parse(localStorage.getItem('data'));
@@ -57,7 +64,7 @@ function ViewPage() {
     const timeRef = useRef();
 
     const fetchApi = async () => {
-        setLoadMore(true);
+        console.log(direction);
         if (direction === 'forYouVideos') {
             const res = await ForYouVideos(currentPage, page, token);
             if (res) {
@@ -70,14 +77,15 @@ function ViewPage() {
         }
         if (direction === 'profileVideos') {
             const res = await GetUsersVideos(userID, page, token);
-            if (res.length > 0) {
+            if (res) {
                 setVideos({
                     ...videos,
                     videoList: [...videoList, ...res],
                     loadPage: page,
                 });
             }
-        } else {
+        }
+        if (!direction) {
             window.location.href = 'http://localhost:4000/';
         }
         setLoadMore(false);
@@ -104,7 +112,7 @@ function ViewPage() {
         if (direction === 'prev') {
             setCurrentIndex(() => (currentIndex === 0 ? 0 : currentIndex - 1));
         } else {
-            if (currentIndex === videoList.length - 1) {
+            if (currentIndex === videoList.length - 2) {
                 setPage((prev) => prev + 1);
                 setLoadMore(true);
             }

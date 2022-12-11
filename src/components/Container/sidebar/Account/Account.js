@@ -15,77 +15,42 @@ function Account({ api, title, suggestedAcc, discovery, following }) {
     const [isLogin] = consumer.isLogin;
     const [token] = consumer.token;
 
+    const followingsApi = async () => {
+        if (seeAll) {
+            const res = await api(2, token);
+            setData((prev) => [...prev, ...res]);
+        } else {
+            const res = await api(1, token);
+            setData(res);
+        }
+    };
+    const suggestedApi = async (seeAll) => {
+        const Api = await api(1, 20);
+        const newApi = [];
+        Api?.forEach((item, index) => {
+            if (index < 6) newApi.push(item);
+            else return;
+        });
+        if (seeAll) {
+            setData(Api);
+            return;
+        } else {
+            setData(newApi);
+            return;
+        }
+    };
+
     useEffect(() => {
         if (isLogin && following) {
-            const fetchApi = async () => {
-                if (seeAll) {
-                    const res = await api(2, token);
-                    setData((prev) => [...prev, ...res]);
-                } else {
-                    const res = await api(1, token);
-                    setData(res);
-                    console.log(token);
-                    console.log(res);
-                }
-            };
-            fetchApi();
+            followingsApi();
         }
     }, [isLogin]);
+
     useEffect(() => {
         if (isLogin && following) {
-            const fetchApi = async () => {
-                if (seeAll) {
-                    const res = await api(2, token);
-                    setData((prev) => [...prev, ...res]);
-                } else {
-                    const res = await api(1, token);
-                    setData(res);
-                }
-            };
-            fetchApi();
-        }
-    }, [seeAll]);
-
-    useEffect(() => {
-        if (!following && isLogin) {
-            const fetchApi = async () => {
-                const Api = await api(1, 20);
-
-                const newApi = [];
-                if (seeAll) {
-                    setData(Api);
-                    return;
-                } else {
-                    Api?.forEach((item, index) => {
-                        if (index < 6) newApi.push(item);
-                        else return;
-                    });
-                    setData(newApi);
-                    return;
-                }
-            };
-            fetchApi();
-        }
-    }, [isLogin]);
-    useEffect(() => {
-        if (!following) {
-            const fetchApi = async () => {
-                const Api = await api(1, 20);
-
-                const newApi = [];
-                if (seeAll) {
-                    setData(Api);
-                    return;
-                } else {
-                    Api?.forEach((item, index) => {
-                        if (index < 6) newApi.push(item);
-                        else return;
-                    });
-                    setData(newApi);
-                    return;
-                }
-            };
-            fetchApi();
+            followingsApi(seeAll);
+        } else {
+            suggestedApi(seeAll);
         }
     }, [seeAll]);
 

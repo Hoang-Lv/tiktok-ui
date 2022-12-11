@@ -24,7 +24,7 @@ function Videos({ profile, myProf, page, setPage }) {
         }
     };
 
-    const handleSubmitVideo = (data, index) => {
+    const handleSubmitViewPage = (data, index) => {
         setDirection('profileVideos');
         setProfileVideos({
             videoList: data,
@@ -37,6 +37,8 @@ function Videos({ profile, myProf, page, setPage }) {
         localStorage.setItem('videos', JSON.stringify(data));
         localStorage.setItem('index', JSON.stringify(index));
         localStorage.setItem('route', JSON.stringify('profiles'));
+        localStorage.setItem('loadPage', JSON.stringify(page));
+        localStorage.setItem('userID', JSON.stringify(profile.id));
     };
     useEffect(() => {
         if (profile.id && page) GetVideos();
@@ -64,7 +66,7 @@ function Videos({ profile, myProf, page, setPage }) {
                     setIs_hover(undefined);
                     setAutoPlay(false);
                 }}
-                onClick={() => handleSubmitVideo(data, index)}
+                onClick={() => handleSubmitViewPage(data, index)}
                 key={index}
                 to={config.routes.video}
                 id={`video_wrap${index}`}
