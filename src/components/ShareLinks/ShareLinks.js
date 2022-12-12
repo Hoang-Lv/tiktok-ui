@@ -1,14 +1,9 @@
 import { useState, useEffect } from 'react';
-import { Consumer } from '~/Context';
 import Tippy from '@tippyjs/react/headless';
-import { Follow } from '~/services';
 import 'tippy.js/dist/tippy.css';
 import { Wrapper as PopperWapper } from '~/components/Popper';
 import classNames from 'classnames/bind';
 import styles from './ShareLinks.module.scss';
-
-import Avatars from '~/components/asset/Avatars';
-import Button from '~/components/Button';
 import Icons from '~/components/asset/Icons';
 const cx = classNames.bind(styles);
 const shareLinks = [
@@ -77,6 +72,7 @@ function ShareLinks({ arrowStyle, offset = [], placement = '', children }) {
             );
         } else {
             setLinks(
+                // eslint-disable-next-line
                 shareLinks.map(({ Icon, href, title }, index) => {
                     if (index < 5)
                         return (

@@ -48,11 +48,13 @@ function Following() {
         if (loadMore) {
             fetchApi();
         }
+        // eslint-disable-next-line
     }, [loadMore]);
     useEffect(() => {
         if (!isLogin) {
             fetchApi();
         }
+        // eslint-disable-next-line
     }, [isLogin]);
 
     return (

@@ -7,8 +7,20 @@ import { Wrapper } from '~/components/Popper';
 import Avatars from '~/components/asset/Avatars';
 import Icons from '~/components/asset/Icons';
 import Button from '~/components/Button';
+
 import config from '~/config';
-import { LikePost, Follow, GetComment, GetaVideo, LikeAComment, CreateAComment, DeleteAComment } from '~/services';
+import {
+    LikePost,
+    Follow,
+    GetComment,
+    GetaVideo,
+    LikeAComment,
+    CreateAComment,
+    DeleteAComment,
+    search,
+    SuggestedAcc,
+    Followings,
+} from '~/services';
 import { Consumer } from '~/Context';
 
 import classname from 'classnames/bind';
@@ -79,6 +91,7 @@ const Emoji = [
     '🥳',
     '😞',
 ];
+const popularEmoji = ['😀', '😅', '😍', '🥰', '😝'];
 
 function Comments({ video, videos, setVideos, setNickName }) {
     const user = video?.user;
@@ -96,8 +109,36 @@ function Comments({ video, videos, setVideos, setNickName }) {
     const [isFollowed, setIsFollowed] = useState(user?.is_followed);
     const [showOptions, setShowOptions] = useState(false);
     const [commentID, setCommentID] = useState(-1);
-    const [emojiHistory, setEmojiHistory] = useState(['😀', '😅', '😍', '🥰', '😝']);
     const [showEmoji, setShowEmoji] = useState(false);
+    const [frientList, setFrientList] = useState([]);
+    const [showUserTags, setShowUserTags] = useState(false);
+    const [placementTag, setPlacementTag] = useState({ placement: -1, key: '' });
+
+    const GetUsers = async () => {
+        if (isLogin) {
+            const res = await Followings(1, token);
+            if (res) {
+                setShowUserTags(true);
+                setFrientList(res);
+            } else setShowUserTags(false);
+        } else {
+            const res = await SuggestedAcc(1, 5);
+            if (res) {
+                setShowUserTags(true);
+                setFrientList(res);
+            } else setShowUserTags(false);
+        }
+    };
+    const SearchUsers = async () => {
+        const res = await search(placementTag.key, 'more', token);
+        if (res.length > 0) {
+            setFrientList(res);
+            setShowUserTags(true);
+        } else {
+            setFrientList([]);
+            setShowUserTags(false);
+        }
+    };
 
     const GetaVideoApi = async () => {
         const liked = await GetaVideo(video.uuid, token);
@@ -173,13 +214,24 @@ function Comments({ video, videos, setVideos, setNickName }) {
         GetCommentApi();
     };
     const handleInputValue = (e) => {
-        setInputValue(e.target.value);
+        const value = e.target.value;
+        setInputValue(value);
+        const placement = value.lastIndexOf('@');
+        if (placement !== -1) {
+            if (frientList.length === 0) {
+                GetUsers();
+            }
+            setPlacementTag({ placement, key: value.slice(placement + 1) });
+        } else {
+            setFrientList([]);
+            setShowUserTags(false);
+        }
     };
 
     const handleShowOptions = () => {
-        const modal = document.getElementById('modal');
-        const overlay = document.getElementById('modal-overlay');
-        const options = document.getElementById('modal-container');
+        // const modal = document.getElementById('modal');
+        // const overlay = document.getElementById('modal-overlay');
+        // const options = document.getElementById('modal-container');
         if (showOptions) {
             setShowOptions(false);
         } else {
@@ -207,6 +259,7 @@ function Comments({ video, videos, setVideos, setNickName }) {
         GetaVideoApi();
         setInputValue('');
         if (isLogin) GetCommentApi();
+        // eslint-disable-next-line
     }, [video.id]);
     useEffect(() => {
         if (isLogin) {
@@ -214,7 +267,16 @@ function Comments({ video, videos, setVideos, setNickName }) {
             GetCommentApi();
             GetaVideoApi();
         }
+        // eslint-disable-next-line
     }, [isLogin]);
+    useEffect(() => {
+        if (placementTag.key.length > 0) {
+            SearchUsers();
+        }
+
+        // eslint-disable-next-line
+    }, [placementTag]);
+
     window.onkeyup = function (e) {
         if (e.which === 13 && inputValue.length > 0) {
             handlePostComment();
@@ -261,7 +323,7 @@ function Comments({ video, videos, setVideos, setNickName }) {
                             content={isFollowed ? 'Đang follow' : 'Follow'}
                             width={106}
                             height={36}
-                            btnStyle={isFollowed ? 'basic_style-following' : 'primary-color--border_style'}
+                            btnStyle={isFollowed ? 'basic_style-followings' : 'primary-color--border_style'}
                             onClick={() => {
                                 setIsFollowed(!isFollowed);
                                 Follow(user.id, isFollowed ? 'unfollow' : 'follow', token);
@@ -289,22 +351,22 @@ function Comments({ video, videos, setVideos, setNickName }) {
                                 </button>
                             </div>
                             <div className={cx('connect-methods')}>
-                                <a href={''}>
+                                <a href="/">
                                     <Icons.Tag />
                                 </a>
-                                <a>
+                                <a href="/">
                                     <Icons.MessageSolid />
                                 </a>
-                                <a>
+                                <a href="/">
                                     <Icons.Line />
                                 </a>
                                 <a href={'https://www.facebook.com/'}>
                                     <Icons.Facebook />
                                 </a>
-                                <a>
+                                <a href="/">
                                     <Icons.Twitter />
                                 </a>
-                                <a>
+                                <a href="/">
                                     <Icons.Share />
                                 </a>
                             </div>
@@ -348,6 +410,7 @@ function Comments({ video, videos, setVideos, setNickName }) {
                             </div>
                             <div className={cx('comment-action')}>
                                 <Tippy
+                                    // parent={document.body}
                                     interactive
                                     offset={[8, 6]}
                                     delay={[0, 200]}
@@ -403,51 +466,120 @@ function Comments({ video, videos, setVideos, setNickName }) {
                 })}
             </div>
             <div className={cx('create-commment')}>
-                <div className={cx('input-wrap')}>
-                    <input id="input" placeholder="Thêm bình luận..." value={inputValue} onChange={handleInputValue} />
-                    <span className={cx('frient-tag_icon')} onClick={handleFrientTag}>
-                        <Icons.FrientTag width={22} height={22} />
-                    </span>
-                    <Tippy
-                        visible={showEmoji}
-                        parent={document.body}
-                        interactive={true}
-                        placement={'top-end'}
-                        offset={[20, 15]}
-                        render={(attrs) => {
-                            return (
-                                <Wrapper tabIndex="-1" {...attrs}>
-                                    <div className={cx('emoji-wrap')}>
-                                        <div className={cx('emoji-list')}>
-                                            {Emoji.map((item) => (
-                                                <span className={cx('emoji-item')} onClick={handleSetEmoji}>
-                                                    {item}
-                                                </span>
-                                            ))}
+                <Tippy
+                    visible={showUserTags}
+                    appendTo={document.body}
+                    interactive={true}
+                    placement={'top-start'}
+                    offset={[20, 15]}
+                    onClickOutside={() => {
+                        setShowUserTags(false);
+                    }}
+                    render={(attrs) => {
+                        return (
+                            <Wrapper tabIndex="-1" {...attrs}>
+                                <div className={cx('frient-list')}>
+                                    {frientList.map((item, index) => (
+                                        <div
+                                            key={index + item.id}
+                                            className={cx('frient-item--wrap')}
+                                            onClick={() => {
+                                                setInputValue(
+                                                    (prev) =>
+                                                        `${inputValue.slice(0, placementTag.placement + 1)}${
+                                                            item.nickname
+                                                        }`,
+                                                );
+                                                setFrientList([]);
+                                                setShowUserTags(false);
+                                                setPlacementTag({ placement: -1, key: '' });
+                                                document.getElementById('input').focus();
+                                            }}
+                                        >
+                                            <div className={cx('frient-item')}>
+                                                <div className={cx('frient-avatar')}>
+                                                    <Avatars src={item.avatar} width={40} height={40} />
+                                                </div>
+                                                <div className={cx('frient-name')}>
+                                                    <p className={cx('frient-fullname')}>
+                                                        <span className={cx('fullname')}>
+                                                            {item.first_name} {item.last_name}
+                                                        </span>
+                                                        {item.is_followed ? (
+                                                            <span className={cx('follow-state')}>Đang Follow</span>
+                                                        ) : (
+                                                            ''
+                                                        )}
+                                                    </p>
+                                                    <span className={cx('nickname')}>{item.nickname}</span>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div className={cx('emoji-history')}>
-                                            {emojiHistory.map((item) => (
-                                                <span className={cx('emoji-item')} onClick={handleSetEmoji}>
-                                                    {item}
-                                                </span>
-                                            ))}
+                                    ))}
+                                </div>
+                            </Wrapper>
+                        );
+                    }}
+                >
+                    <div className={cx('input-wrap')}>
+                        <input
+                            id="input"
+                            placeholder="Thêm bình luận..."
+                            value={inputValue}
+                            onChange={handleInputValue}
+                        />
+                        <span className={cx('frient-tag_icon')} onClick={handleFrientTag}>
+                            <Icons.FrientTag width={22} height={22} />
+                        </span>
+                        <Tippy
+                            visible={showEmoji}
+                            appenTo={document.body}
+                            interactive={true}
+                            placement={'top-end'}
+                            offset={[20, 15]}
+                            render={(attrs) => {
+                                return (
+                                    <Wrapper tabIndex="-1" {...attrs}>
+                                        <div className={cx('emoji-wrap')}>
+                                            <div className={cx('emoji-list')}>
+                                                {Emoji.map((item, index) => (
+                                                    <span
+                                                        key={index + item.id}
+                                                        className={cx('emoji-item')}
+                                                        onClick={handleSetEmoji}
+                                                    >
+                                                        {item}
+                                                    </span>
+                                                ))}
+                                            </div>
+                                            <div className={cx('emoji-history')}>
+                                                {popularEmoji.map((item, index) => (
+                                                    <span
+                                                        key={index + item.id}
+                                                        className={cx('emoji-item')}
+                                                        onClick={handleSetEmoji}
+                                                    >
+                                                        {item}
+                                                    </span>
+                                                ))}
+                                            </div>
                                         </div>
-                                    </div>
-                                </Wrapper>
-                            );
-                        }}
-                    >
-                        <span
-                            className={cx('emoj_icon')}
-                            onClick={(e) => {
-                                e.stopPropagation();
-                                setShowEmoji(!showEmoji);
+                                    </Wrapper>
+                                );
                             }}
                         >
-                            <Icons.Smile width={22} height={22} />
-                        </span>
-                    </Tippy>
-                </div>
+                            <span
+                                className={cx('emoj_icon')}
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    setShowEmoji(!showEmoji);
+                                }}
+                            >
+                                <Icons.Smile width={22} height={22} />
+                            </span>
+                        </Tippy>
+                    </div>
+                </Tippy>
                 <div
                     className={cx('post-btn')}
                     style={inputValue?.length > 0 ? { color: 'var(--primary-color)', cursor: 'pointer' } : {}}

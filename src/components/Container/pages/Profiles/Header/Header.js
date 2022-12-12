@@ -36,6 +36,7 @@ function Header({ profile, myProf }) {
     useEffect(() => {
         setFollowState(is_followed);
         setAvatarUrl(avatar);
+        // eslint-disable-next-line
     }, [profile]);
 
     const links = [];
@@ -150,19 +151,19 @@ function Header({ profile, myProf }) {
                             <PopperWapper>
                                 <div className={cx('tippy-more_action-wrap')}>
                                     <div className={cx('more-item')}>
-                                        <a className={cx('more-item_link')}>
+                                        <a href="/" className={cx('more-item_link')}>
                                             <Icons.Message />
                                             <span className={cx('more-tite')}>Gửi tin nhắn</span>
                                         </a>
                                     </div>
                                     <div className={cx('more-item')}>
-                                        <a className={cx('more-item_link')}>
+                                        <a href="/" className={cx('more-item_link')}>
                                             <Icons.Flag />
                                             <span className={cx('more-tite')}>Báo cáo</span>
                                         </a>
                                     </div>
                                     <div className={cx('more-item')}>
-                                        <a className={cx('more-item_link')}>
+                                        <a href="/" className={cx('more-item_link')}>
                                             <Icons.Block />
                                             <span className={cx('more-tite')}>Chặn</span>
                                         </a>

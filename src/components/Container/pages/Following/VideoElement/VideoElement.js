@@ -2,13 +2,12 @@ import { useRef, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import Icons from '~/components/asset/Icons';
-import Button from '~/components/Button';
 import config from '~/config';
 import { Consumer } from '~/Context';
 import Avatars from '~/components/asset/Avatars';
 import ShareLinks from '~/components/ShareLinks';
 
-import { LikePost, Follow } from '~/services';
+import { LikePost } from '~/services';
 
 import className from 'classnames/bind';
 import styles from './VideoElement.module.scss';
@@ -28,7 +27,7 @@ function VideoElement({
     poster,
     onClick,
 }) {
-    const { avatar, first_name, last_name, nickname, tick, id, is_followed } = data.user;
+    const { avatar, first_name, last_name, nickname, tick } = data.user;
     const { likes_count, comments_count, shares_count, is_liked, file_url } = data;
     const width = data.meta.video.resolution_x;
     const height = data.meta.video.resolution_y;
@@ -42,7 +41,6 @@ function VideoElement({
     const [, setNickName] = consumer.nickName;
     const [likeState, setLikeState] = useState(is_liked);
     const [likesCound, setLikesCound] = useState(likes_count);
-    const [followState, setFollowState] = useState(is_followed);
 
     useEffect(() => {
         if (state && onPlay) {
@@ -92,19 +90,6 @@ function VideoElement({
         console.log(data);
         setNickName(data.user.nickname);
         localStorage.setItem('nickname', JSON.stringify(data.user.nickname));
-    };
-    const handleFollow = async (id, type) => {
-        setFollowState(!followState);
-        const res = await Follow(id, type, token);
-        const newArr = [];
-        users.forEach((item) => {
-            if (item.user_id === res.id) {
-                newArr.push({ ...item, user: { ...item.user, is_followed: res.is_followed } });
-            } else {
-                newArr.push(item);
-            }
-        });
-        setData([...newArr]);
     };
 
     const handleLike = async (id, type) => {
