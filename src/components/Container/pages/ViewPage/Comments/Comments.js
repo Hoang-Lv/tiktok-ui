@@ -15,6 +15,71 @@ import classname from 'classnames/bind';
 import styles from './Comments.module.scss';
 const cx = classname.bind(styles);
 
+const Emoji = [
+    '😀',
+    '😃',
+    '😄',
+    '😁',
+    '😆',
+    '🥹',
+    '😅',
+    '😂',
+    '🤣',
+    '🥲',
+    '😊',
+    '😇',
+    '🙂',
+    '🙃',
+    '😉',
+    '😌',
+    '😍',
+    '🥰',
+    '😘',
+    '😗',
+    '😙',
+    '😚',
+    '😋',
+    '😛',
+    '😝',
+    '😜',
+    '🤪',
+    '🤨',
+    '🤩',
+    '🥳',
+    '😞',
+    '😀',
+    '😃',
+    '😄',
+    '😁',
+    '😆',
+    '🥹',
+    '😅',
+    '😂',
+    '🤣',
+    '🥲',
+    '😊',
+    '😇',
+    '🙂',
+    '🙃',
+    '😉',
+    '😌',
+    '😍',
+    '🥰',
+    '😘',
+    '😗',
+    '😙',
+    '😚',
+    '😋',
+    '😛',
+    '😝',
+    '😜',
+    '🤪',
+    '🤨',
+    '🤩',
+    '🥳',
+    '😞',
+];
+
 function Comments({ video, videos, setVideos, setNickName }) {
     const user = video?.user;
     const href = window.location.href;
@@ -31,6 +96,8 @@ function Comments({ video, videos, setVideos, setNickName }) {
     const [isFollowed, setIsFollowed] = useState(user?.is_followed);
     const [showOptions, setShowOptions] = useState(false);
     const [commentID, setCommentID] = useState(-1);
+    const [emojiHistory, setEmojiHistory] = useState(['😀', '😅', '😍', '🥰', '😝']);
+    const [showEmoji, setShowEmoji] = useState(false);
 
     const GetaVideoApi = async () => {
         const liked = await GetaVideo(video.uuid, token);
@@ -100,11 +167,10 @@ function Comments({ video, videos, setVideos, setNickName }) {
             setLoginPopper(true);
         }
     };
-    const handleRemoveComment = async () => {
+    const handleRemoveComment = () => {
         setShowOptions(false);
-        const res = await DeleteAComment(commentID, token);
+        DeleteAComment(commentID, token);
         GetCommentApi();
-        console.log(res);
     };
     const handleInputValue = (e) => {
         setInputValue(e.target.value);
@@ -124,7 +190,18 @@ function Comments({ video, videos, setVideos, setNickName }) {
         document.getElementById('input').focus();
         setInputValue(`@${f} ${l} : `);
     };
-
+    const handleFrientTag = () => {
+        document.getElementById('input').focus();
+        setInputValue((prev) => `${prev} @`);
+    };
+    const handleSetEmoji = (e) => {
+        const item = e.target;
+        setInputValue((prev) => `${prev}${item.innerText}`);
+        document.getElementById('input').focus();
+    };
+    window.onclick = function () {
+        if (showEmoji) setShowEmoji(false);
+    };
     useEffect(() => {
         setComments([]);
         GetaVideoApi();
@@ -328,12 +405,48 @@ function Comments({ video, videos, setVideos, setNickName }) {
             <div className={cx('create-commment')}>
                 <div className={cx('input-wrap')}>
                     <input id="input" placeholder="Thêm bình luận..." value={inputValue} onChange={handleInputValue} />
-                    <span className={cx('frient-tag_icon')}>
+                    <span className={cx('frient-tag_icon')} onClick={handleFrientTag}>
                         <Icons.FrientTag width={22} height={22} />
                     </span>
-                    <span className={cx('emoj_icon')}>
-                        <Icons.Smile width={22} height={22} />
-                    </span>
+                    <Tippy
+                        visible={showEmoji}
+                        parent={document.body}
+                        interactive={true}
+                        placement={'top-end'}
+                        offset={[20, 15]}
+                        render={(attrs) => {
+                            return (
+                                <Wrapper tabIndex="-1" {...attrs}>
+                                    <div className={cx('emoji-wrap')}>
+                                        <div className={cx('emoji-list')}>
+                                            {Emoji.map((item) => (
+                                                <span className={cx('emoji-item')} onClick={handleSetEmoji}>
+                                                    {item}
+                                                </span>
+                                            ))}
+                                        </div>
+                                        <div className={cx('emoji-history')}>
+                                            {emojiHistory.map((item) => (
+                                                <span className={cx('emoji-item')} onClick={handleSetEmoji}>
+                                                    {item}
+                                                </span>
+                                            ))}
+                                        </div>
+                                    </div>
+                                </Wrapper>
+                            );
+                        }}
+                    >
+                        <span
+                            className={cx('emoj_icon')}
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                setShowEmoji(!showEmoji);
+                            }}
+                        >
+                            <Icons.Smile width={22} height={22} />
+                        </span>
+                    </Tippy>
                 </div>
                 <div
                     className={cx('post-btn')}

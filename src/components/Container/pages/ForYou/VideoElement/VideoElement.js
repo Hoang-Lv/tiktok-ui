@@ -1,10 +1,13 @@
 import { useRef, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+
 import Icons from '~/components/asset/Icons';
+import Avatars from '~/components/asset/Avatars';
 import Button from '~/components/Button';
+import ShareLinks from '~/components/ShareLinks';
+
 import config from '~/config';
 import { Consumer } from '~/Context';
-import Avatars from '~/components/asset/Avatars';
 import { LikePost, Follow } from '~/services';
 
 import className from 'classnames/bind';
@@ -236,9 +239,11 @@ function VideoElement({
                             <p className={cx('count')}>{comments_count}</p>
                         </Link>
                         <div className={cx('share', 'action-wrap')}>
-                            <span>
-                                <Icons.Share />
-                            </span>
+                            <ShareLinks arrowStyle={'bottom-arrow'} offset={[-22, 15]} placement={'top-start'}>
+                                <span>
+                                    <Icons.Share />
+                                </span>
+                            </ShareLinks>
                             <p className={cx('count')}>{shares_count}</p>
                         </div>
                     </div>
