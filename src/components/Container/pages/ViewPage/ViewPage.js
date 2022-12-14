@@ -19,7 +19,7 @@ function ViewPage() {
     const [, setNickName] = data.nickName;
     // Lấy ra chuỗi nhằm điều hướng đến list video cần tìm (vd: list video foryouvideo trong context)
     let [direction] = data.direction;
-    if (typeof direction !== 'string') direction = JSON.parse(localStorage.getItem('videoSource'));
+    if (typeof direction !== 'string') direction = JSON.parse(localStorage.getItem('direction'));
     // điều hướng đến list video khi đã có phương hướng
     const [videos, setVideos] = data[direction];
     let { videoList = [], index = 0, currentPage = '', loadPage = 1, route = '', userID } = videos;
@@ -64,8 +64,7 @@ function ViewPage() {
     const timeRef = useRef();
 
     const fetchApi = async () => {
-        console.log(direction);
-        if (direction === 'forYouVideos') {
+        if (direction === 'forYouVideos' || direction === 'followingVideos') {
             const res = await ForYouVideos(currentPage, page, token);
             if (res) {
                 setVideos({
@@ -214,7 +213,7 @@ function ViewPage() {
                                 type="range"
                                 min={0}
                                 max={100}
-                                value={timeLine}
+                                value={timeLine || 0}
                                 step={1}
                                 onClick={(e) => {
                                     e.stopPropagation();

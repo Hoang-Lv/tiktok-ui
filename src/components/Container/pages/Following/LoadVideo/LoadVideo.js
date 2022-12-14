@@ -49,8 +49,9 @@ function InfiniteList(props) {
         localStorage.setItem('videos', JSON.stringify(data));
         localStorage.setItem('index', JSON.stringify(index));
         localStorage.setItem('loadPage', JSON.stringify(loadPage));
-        localStorage.setItem('videoSource', JSON.stringify('followingVideos'));
+        localStorage.setItem('videoSource', JSON.stringify('following'));
         localStorage.setItem('route', JSON.stringify('following'));
+        localStorage.setItem('direction', JSON.stringify('followingVideos'));
     };
     const handleScroll = (e) => {
         const el = e.target;

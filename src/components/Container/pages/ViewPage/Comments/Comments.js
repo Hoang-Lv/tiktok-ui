@@ -113,32 +113,34 @@ function Comments({ video, videos, setVideos, setNickName }) {
     const [frientList, setFrientList] = useState([]);
     const [showUserTags, setShowUserTags] = useState(false);
     const [placementTag, setPlacementTag] = useState({ placement: -1, key: '' });
-
-    const GetUsers = async () => {
-        if (isLogin) {
-            const res = await Followings(1, token);
-            if (res) {
-                setShowUserTags(true);
-                setFrientList(res);
-            } else setShowUserTags(false);
-        } else {
-            const res = await SuggestedAcc(1, 5);
-            if (res) {
-                setShowUserTags(true);
-                setFrientList(res);
-            } else setShowUserTags(false);
-        }
-    };
-    const SearchUsers = async () => {
-        const res = await search(placementTag.key, 'more', token);
-        if (res.length > 0) {
-            setFrientList(res);
-            setShowUserTags(true);
-        } else {
-            setFrientList([]);
-            setShowUserTags(false);
-        }
-    };
+    const [callApiState, setCallApiState] = useState(true);
+    // const GetUsers = async (plm, key) => {
+    //     // console.log(plm, key);
+    //     if (key.length === 0) {
+    //         if (isLogin) {
+    //             const res = await Followings(1, token);
+    //             if (res) {
+    //                 setShowUserTags(true);
+    //                 setFrientList(res);
+    //             } else setShowUserTags(false);
+    //         } else {
+    //             const res = await SuggestedAcc(1, 5);
+    //             if (res) {
+    //                 setShowUserTags(true);
+    //                 setFrientList(res);
+    //             } else setShowUserTags(false);
+    //         }
+    //     } else {
+    //         const res = await search(key, 'more', token);
+    //         if (res.length > 0) {
+    //             setFrientList(res);
+    //             setShowUserTags(true);
+    //         } else {
+    //             setFrientList([]);
+    //             setShowUserTags(false);
+    //         }
+    //     }
+    // };
 
     const GetaVideoApi = async () => {
         const liked = await GetaVideo(video.uuid, token);
@@ -216,16 +218,29 @@ function Comments({ video, videos, setVideos, setNickName }) {
     const handleInputValue = (e) => {
         const value = e.target.value;
         setInputValue(value);
-        const placement = value.lastIndexOf('@');
-        if (placement !== -1) {
-            if (frientList.length === 0) {
-                GetUsers();
-            }
-            setPlacementTag({ placement, key: value.slice(placement + 1) });
-        } else {
-            setFrientList([]);
-            setShowUserTags(false);
-        }
+        // const newPlacement = value.indexOf('@');
+
+        // const placement = placementTag.placement !== -1 ? value.indexOf('@', placementTag.placement + 1) : -2;
+
+        // const key = value.substring(newPlacement !== -1 ? newPlacement + 1 : 9999);
+        // const newKey = value.substring(placement !== -1 ? placement + 1 : 9999);
+        // console.log(placementTag.placement);
+        // if (newPlacement !== -1) {
+        //     if (placement !== -1) {
+        //         setCallApiState(true);
+        //     }
+        //     if (callApiState) {
+        //         GetUsers(placement !== -1 ? placement : newPlacement, newKey.length > 0 ? newKey : key);
+        //         setPlacementTag({
+        //             placement: placement !== -1 ? placement : newPlacement,
+        //             key: newKey.length > 0 ? newKey : key,
+        //         });
+        //     }
+        // }
+        // if (newPlacement === -1) {
+        //     setFrientList([]);
+        //     setShowUserTags(false);
+        // }
     };
 
     const handleShowOptions = () => {
@@ -269,13 +284,6 @@ function Comments({ video, videos, setVideos, setNickName }) {
         }
         // eslint-disable-next-line
     }, [isLogin]);
-    useEffect(() => {
-        if (placementTag.key.length > 0) {
-            SearchUsers();
-        }
-
-        // eslint-disable-next-line
-    }, [placementTag]);
 
     window.onkeyup = function (e) {
         if (e.which === 13 && inputValue.length > 0) {
@@ -388,8 +396,51 @@ function Comments({ video, videos, setVideos, setNickName }) {
                 {comments?.map((item, index) => {
                     const { id, comment, is_liked, likes_count, updated_at, user } = item;
                     const { first_name, last_name, avatar, tick } = user;
+                    const currT = new Date();
+                    const year = currT.getFullYear();
+                    const month = currT.getMonth() + 1;
+                    const day = currT.getDate();
+                    const hour = currT.getHours();
+                    const minute = currT.getMinutes();
+                    const date = [];
+                    const time = [];
+                    updated_at.split(' ').forEach((item) => {
+                        if (item.indexOf('-') >= 0) {
+                            date.push(...item.split('-'));
+                        }
+                        if (item.indexOf(':') >= 0) {
+                            time.push(...item.split(':'));
+                        }
+                    });
+                    const fullday = new Date(date[0], date[1], 0).getDate();
+                    const timer = () => {
+                        const yearR = year - date[0];
+                        const monthR = month - date[1];
+                        const dayR = day - date[2];
+                        const hourR = hour - time[0];
+                        const minuteR = minute - time[1];
+                        if (yearR >= 2) return `${yearR} năm trước`;
+                        if (monthR == 0 && yearR > 0) return `${yearR} năm trước`;
+                        if (monthR > 0 && yearR > 0) return `${yearR} năm ${monthR} tháng trước`;
+                        if (monthR < 0 && yearR > 0) return `${month + 12 - date[1]} tháng trước`;
+                        if (monthR === 1 && dayR < 0) return `${day + fullday - date[2]} ngày trước`;
+                        if (monthR > 0) return `${monthR} tháng trước`;
+                        if (dayR === 1 && hourR < 0) return `${hour + 24 - time[0]} tiếng trước`;
+                        if (dayR > 0) return `${dayR} ngày trước`;
+                        if (dayR < 0 && day + fullday - date[2] > 1) return `${day + fullday - date[2]} ngày trước`;
+                        if (dayR < 0 && day + fullday - date[2] === 1 && hourR >= 0) return `${1} ngày trước`;
+                        if (dayR < 0 && hourR < 0) return `${hour + 24 - time[0]} tiếng trước`;
+                        if (hourR > 0) return `${hourR} tiếng trước`;
+                        if (hourR < 0 && hour + 24 - time[0] >= 1 && minuteR > 0)
+                            return `${hour + 24 - time[0]} tiếng trước`;
+                        if (hourR < 0 && hour + 24 - time[0] >= 1 && minuteR < 0)
+                            return `${minute + 60 - time[1]} phút trước`;
+                        if (minuteR > 0) return `${minuteR} phút trước`;
+                        return 'Vài giây trước';
+                    };
+
                     return (
-                        <div className={cx('comment-item')} key={index}>
+                        <div className={cx('comment-item')} key={id}>
                             <div className={cx('avatar')}>
                                 <Avatars src={avatar} width={40} height={40} />
                             </div>
@@ -402,7 +453,7 @@ function Comments({ video, videos, setVideos, setNickName }) {
                                 </div>
                                 <p className={cx('comment-content')}>{comment}</p>
                                 <div className={cx('timer-and-answer')}>
-                                    <span className={cx('timer')}>{updated_at}</span>
+                                    <span className={cx('timer')}>{timer()}</span>
                                     <span className={cx('answer')} onClick={() => handleAnswer(first_name, last_name)}>
                                         Trả lời
                                     </span>
@@ -481,19 +532,19 @@ function Comments({ video, videos, setVideos, setNickName }) {
                                 <div className={cx('frient-list')}>
                                     {frientList.map((item, index) => (
                                         <div
-                                            key={index + item.id}
+                                            key={index + 3}
                                             className={cx('frient-item--wrap')}
                                             onClick={() => {
-                                                setInputValue(
-                                                    (prev) =>
-                                                        `${inputValue.slice(0, placementTag.placement + 1)}${
-                                                            item.nickname
-                                                        }`,
-                                                );
-                                                setFrientList([]);
-                                                setShowUserTags(false);
-                                                setPlacementTag({ placement: -1, key: '' });
-                                                document.getElementById('input').focus();
+                                                // setInputValue(
+                                                //     (prev) =>
+                                                //         `${inputValue.slice(0, placementTag.placement + 1)}${
+                                                //             item.nickname
+                                                //         }`,
+                                                // );
+                                                // setCallApiState(false);
+                                                // setFrientList([]);
+                                                // setShowUserTags(false);
+                                                // document.getElementById('input').focus();
                                             }}
                                         >
                                             <div className={cx('frient-item')}>
@@ -533,7 +584,7 @@ function Comments({ video, videos, setVideos, setNickName }) {
                         </span>
                         <Tippy
                             visible={showEmoji}
-                            appenTo={document.body}
+                            appendTo={document.body}
                             interactive={true}
                             placement={'top-end'}
                             offset={[20, 15]}
@@ -544,7 +595,7 @@ function Comments({ video, videos, setVideos, setNickName }) {
                                             <div className={cx('emoji-list')}>
                                                 {Emoji.map((item, index) => (
                                                     <span
-                                                        key={index + item.id}
+                                                        key={index + 2}
                                                         className={cx('emoji-item')}
                                                         onClick={handleSetEmoji}
                                                     >
@@ -555,7 +606,7 @@ function Comments({ video, videos, setVideos, setNickName }) {
                                             <div className={cx('emoji-history')}>
                                                 {popularEmoji.map((item, index) => (
                                                     <span
-                                                        key={index + item.id}
+                                                        key={index + 1}
                                                         className={cx('emoji-item')}
                                                         onClick={handleSetEmoji}
                                                     >
