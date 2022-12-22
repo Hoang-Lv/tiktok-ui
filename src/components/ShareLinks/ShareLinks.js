@@ -51,7 +51,7 @@ const shareLinks = [
 
 function ShareLinks({ arrowStyle, offset = [], placement = '', children }) {
     const [showLinks, setShowLinks] = useState(true);
-    const [Links, setLinks] = useState({});
+    const [Links, setLinks] = useState();
     const handleShowLinks = () => {
         setShowLinks(false);
     };
@@ -72,8 +72,8 @@ function ShareLinks({ arrowStyle, offset = [], placement = '', children }) {
             );
         } else {
             setLinks(
-                // eslint-disable-next-line
                 shareLinks.map(({ Icon, href, title }, index) => {
+                    // eslint-disable-next-line
                     if (index < 5)
                         return (
                             <a key={index} href={href} className={cx('share-item')}>

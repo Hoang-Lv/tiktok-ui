@@ -3,10 +3,10 @@
     position: relative;
     input {
         border-radius: 2px;
-        background-color: rgba(22, 24, 35, 0.06);
-        border: 1px solid rgba(22, 24, 35, 0.12);
+        background-color: var(--gray);
+        border: 1px solid var(--separate);
         padding-inline-start: 12px;
-        color: rgb(22, 24, 35);
+        color: var(--placerholder-color);
         line-height: 100%;
         outline: none;
         font-size: 16px;
@@ -50,7 +50,7 @@
 .warning-header {
     font-size: 1.4rem;
     line-height: 1.5rem;
-    color: rgb(22, 24, 35);
+    color: var(--placerholder-color);
     font-weight: 600;
     margin: 4px 0px;
 }
@@ -66,13 +66,13 @@
     align-items: center;
     font-size: 10px;
     margin-right: 5px;
-    color: rgba(22, 24, 35, 0.5);
+    color: var(--text-gray-to-white);
 }
 .warning-title {
     font-size: 12px;
     line-height: 15px;
     margin: 4px 0px;
-    color: rgba(22, 24, 35, 0.5);
+    color: var(--text-gray-to-white);
 }
 .error-mesage {
     font-size: 12px;
@@ -96,7 +96,7 @@
 .warning-header {
     font-size: 1.4rem;
     line-height: 1.5rem;
-    color: rgb(22, 24, 35);
+    color: var(--placerholder-color);
     font-weight: 600;
     margin: 4px 0px;
 }
@@ -112,11 +112,11 @@
     align-items: center;
     font-size: 10px;
     margin-right: 5px;
-    color: rgba(22, 24, 35, 0.5);
+    color: var(--text-gray-to-white);
 }
 .warning-title {
     font-size: 12px;
     line-height: 15px;
     margin: 4px 0px;
-    color: rgba(22, 24, 35, 0.5);
+    color: var(--text-gray-to-white);
 }

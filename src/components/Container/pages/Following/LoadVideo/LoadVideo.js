@@ -104,6 +104,7 @@ function InfiniteList(props) {
             getData();
             setLoadMore(true);
         }
+        // eslint-disable-next-line
     }, [props.isLogin]);
 
     useEffect(() => {
@@ -115,10 +116,12 @@ function InfiniteList(props) {
                 });
             }
         }
+        // eslint-disable-next-line
     }, [props.index]);
 
     useEffect(() => {
         getData(loadMore);
+        // eslint-disable-next-line
     }, [loadMore]);
     const Video = props.data.map((user, index) => {
         return (

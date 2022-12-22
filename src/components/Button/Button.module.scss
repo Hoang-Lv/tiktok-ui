@@ -8,7 +8,7 @@
     line-height: 2.2rem;
     color: var(--text-color);
     cursor: pointer;
-    background-color: var(--white-color);
+
     border: 1px solid transparent;
     &.Button_Component {
     }
@@ -21,19 +21,21 @@
     margin-right: 16px;
     padding: 6px 17.5px;
     border-radius: 2px;
-    border-color: rgba(22, 24, 35, 0.12);
+    border-color: var(--separate);
+    background-color: var(--white-to-gray2);
     &:hover {
-        background-color: rgba(22, 24, 35, 0.03);
+        background-color: var(--white-to-gray2-hover);
     }
 }
 .basic_style-following {
     font-size: 1.6rem;
     font-weight: 600;
     border-radius: 2px;
-    color: #181a25;
-    border-color: rgba(22, 24, 35, 0.12);
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+    background-color: var(--white-to-gray);
     &:hover {
-        background-color: rgba(22, 24, 35, 0.03);
+        background-color: var(--white-to-gray-hover);
     }
 }
 .primary-color_style {
@@ -63,12 +65,12 @@
     line-height: 2.2rem;
     font-weight: 600;
     color: var(--primary-color);
-    background-color: var(--white-color);
+    background-color: var(--white-to-gray);
     border: 1px solid var(--primary-color);
     border-radius: 4px;
     cursor: pointer;
     &:hover {
-        background-color: #fff4f5;
+        background-color: var(--white-to-gray-hover);
     }
 }
 .simple_style {

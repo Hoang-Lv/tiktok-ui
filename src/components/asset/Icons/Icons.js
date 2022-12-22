@@ -47,9 +47,9 @@ const Icons = {
     Back: () => <IoChevronBackSharp />,
     Next: () => <BiSkipNext />,
     Up: () => <IoChevronUpSharp />,
+    Down: () => <IoChevronDownSharp />,
     EyeClose: () => <VscEyeClosed />,
     EyeOpen: () => <VscEye />,
-    Down: () => <IoChevronDownSharp />,
     DownSolid: () => <BsFillCaretDownFill />,
     Heart: () => <BsFillHeartFill />,
     SolidHeart: () => <BsHeart />,
@@ -62,7 +62,7 @@ const Icons = {
     Lock: () => <HiLockClosed />,
     Link: () => <BiLink />,
     Music: () => <IoMusicalNotesSharp />,
-    
+
     Tag({ className, width = '2.6rem', height = '2.6rem' }) {
         return (
             <svg
@@ -365,7 +365,7 @@ const Icons = {
                 width={width}
                 height={height}
                 viewBox="0 0 24 24"
-                fill="none"
+                fill="currentColor"
                 xmlns="http://www.w3.org/2000/svg"
             >
                 <path
@@ -880,6 +880,105 @@ const Icons = {
                     fillRule="evenodd"
                     clipRule="evenodd"
                     d="M24 6C14.0589 6 6 14.0589 6 24C6 33.9411 14.0589 42 24 42C28.0553 42 31.7921 40.6614 34.8006 38.401L35.6001 37.8003C36.0416 37.4686 36.6685 37.5576 37.0003 37.9992L38.2016 39.5981C38.5334 40.0397 38.4443 40.6666 38.0028 40.9983L37.2033 41.599C33.5258 44.3619 28.9513 46 24 46C11.8497 46 2 36.1503 2 24C2 11.8497 11.8497 2 24 2C36.1503 2 46 11.8497 46 24V26C46 30.4843 42.1949 34 37.8438 34C35.1966 34 32.8496 32.7142 31.3935 30.733C29.5649 32.7403 26.9303 34 24 34C18.4772 34 14 29.5228 14 24C14 18.4772 18.4772 14 24 14C29.5228 14 34 18.4772 34 24C34 24.5814 33.9502 25.1528 33.8541 25.7096C33.8473 25.8052 33.8438 25.902 33.8438 26C33.8438 28.2091 35.6347 30 37.8438 30C40.1201 30 42 28.1431 42 26V24C42 14.0589 33.9411 6 24 6ZM24 18C20.6863 18 18 20.6863 18 24C18 27.3137 20.6863 30 24 30C26.9395 30 29.3891 27.8841 29.9013 25.0918C29.9659 24.7392 30 24.3744 30 24C30 20.6863 27.3137 18 24 18Z"
+                ></path>
+            </svg>
+        );
+    },
+    DarkMode({ className, width = '2rem', height = '2rem' }) {
+        return (
+            <svg
+                className={className}
+                width={width}
+                data-e2e=""
+                height={height}
+                viewBox="0 0 48 48"
+                fill="currentColor"
+                xmlns="http://www.w3.org/2000/svg"
+            >
+                <path
+                    fillRule="evenodd"
+                    clipRule="evenodd"
+                    d="M20.3019 6.38068C21.723 6.08373 22.9615 7.16986 23.009 8.50693C23.2751 16.0034 29.4377 22 37 22C37.8141 22 38.6105 21.9307 39.3839 21.7982C40.7019 21.5723 42 22.5655 42 24C42 33.9411 33.9411 42 24 42C14.0589 42 6 33.9411 6 24C6 15.3248 12.1351 8.0871 20.3019 6.38068ZM19.2223 10.8358C13.8426 12.7885 10 17.9473 10 24C10 31.732 16.268 38 24 38C31.06 38 36.8994 32.7742 37.8611 25.9797C37.5756 25.9932 37.2886 26 37 26C28.0237 26 20.5827 19.4301 19.2223 10.8358Z"
+                ></path>
+            </svg>
+        );
+    },
+    BackKeyboadShort({ className, width = '2.4rem', height = '2.4rem' }) {
+        return (
+            <svg
+                className={className}
+                width={width}
+                height={height}
+                data-e2e=""
+                viewBox="0 0 48 48"
+                fill="currentColor"
+                xmlns="http://www.w3.org/2000/svg"
+            >
+                <path d="M25.2809 18.7113C24.641 17.8563 23.359 17.8563 22.7191 18.7113L15.9152 27.8012C15.1256 28.8562 15.8784 30.36 17.1962 30.36L30.8038 30.36C32.1216 30.36 32.8744 28.8562 32.0848 27.8012L25.2809 18.7113Z"></path>
+                <path
+                    fillRule="evenodd"
+                    clipRule="evenodd"
+                    d="M3 11C3 6.58172 6.58172 3 11 3H37C41.4183 3 45 6.58172 45 11V37C45 41.4183 41.4183 45 37 45H11C6.58172 45 3 41.4183 3 37V11ZM11 7H37C39.2091 7 41 8.79086 41 11V37C41 39.2091 39.2091 41 37 41H11C8.79086 41 7 39.2091 7 37V11C7 8.79086 8.79086 7 11 7Z"
+                ></path>
+            </svg>
+        );
+    },
+    NextKeyboadShort({ className, width = '2.4rem', height = '2.4rem' }) {
+        return (
+            <svg
+                className={className}
+                width={width}
+                height={height}
+                data-e2e=""
+                viewBox="0 0 48 48"
+                fill="currentColor"
+                xmlns="http://www.w3.org/2000/svg"
+            >
+                <path d="M22.7191 30.6487C23.359 31.5037 24.641 31.5037 25.2809 30.6487L32.0848 21.5588C32.8744 20.5038 32.1216 19 30.8038 19H17.1962C15.8784 19 15.1256 20.5038 15.9152 21.5588L22.7191 30.6487Z"></path>
+                <path
+                    fillRule="evenodd"
+                    clipRule="evenodd"
+                    d="M3 11C3 6.58172 6.58172 3 11 3H37C41.4183 3 45 6.58172 45 11V37C45 41.4183 41.4183 45 37 45H11C6.58172 45 3 41.4183 3 37V11ZM11 7H37C39.2091 7 41 8.79086 41 11V37C41 39.2091 39.2091 41 37 41H11C8.79086 41 7 39.2091 7 37V11C7 8.79086 8.79086 7 11 7Z"
+                ></path>
+            </svg>
+        );
+    },
+    LikeKeyboadShort({ className, width = '2.4rem', height = '2.4rem' }) {
+        return (
+            <svg
+                className={className}
+                width={width}
+                height={height}
+                data-e2e=""
+                viewBox="0 0 48 48"
+                fill="currentColor"
+                xmlns="http://www.w3.org/2000/svg"
+            >
+                <path d="M31.5 33C31.5 33.5523 31.0523 34 30.5 34H20.5C19.3954 34 18.5 33.1046 18.5 32V15C18.5 14.4477 18.9477 14 19.5 14H21.5C22.0523 14 22.5 14.4477 22.5 15V30H30.5C31.0523 30 31.5 30.4477 31.5 31V33Z"></path>
+                <path
+                    fillRule="evenodd"
+                    clipRule="evenodd"
+                    d="M3 11C3 6.58172 6.58172 3 11 3H37C41.4183 3 45 6.58172 45 11V37C45 41.4183 41.4183 45 37 45H11C6.58172 45 3 41.4183 3 37V11ZM11 7H37C39.2091 7 41 8.79086 41 11V37C41 39.2091 39.2091 41 37 41H11C8.79086 41 7 39.2091 7 37V11C7 8.79086 8.79086 7 11 7Z"
+                ></path>
+            </svg>
+        );
+    },
+    MuteKeyboadShort({ className, width = '2.4rem', height = '2.4rem' }) {
+        return (
+            <svg
+                className={className}
+                width={width}
+                height={height}
+                data-e2e=""
+                viewBox="0 0 48 48"
+                fill="currentColor"
+                xmlns="http://www.w3.org/2000/svg"
+            >
+                <path d="M15 14C14.4477 14 14 14.4478 14 15V33C14 33.5523 14.4477 34 15 34H17C17.5523 34 18 33.5523 18 33V21L21.9562 33.3061C22.0891 33.7196 22.4738 34 22.9082 34H25.0911C25.5255 34 25.9102 33.7196 26.0431 33.3061L30 21V33C30 33.5523 30.4477 34 31 34H33C33.5523 34 34 33.5523 34 33V15C34 14.4477 33.5523 14 33 14L29.7129 14.0001C29.2863 14.0001 28.9067 14.2707 28.7676 14.6741L24 28.5L19.2324 14.6741C19.0933 14.2707 18.7137 14.0001 18.287 14.0001L15 14Z"></path>
+                <path
+                    fillRule="evenodd"
+                    clipRule="evenodd"
+                    d="M3 11C3 6.58172 6.58172 3 11 3H37C41.4183 3 45 6.58172 45 11V37C45 41.4183 41.4183 45 37 45H11C6.58172 45 3 41.4183 3 37V11ZM11 7H37C39.2091 7 41 8.79086 41 11V37C41 39.2091 39.2091 41 37 41H11C8.79086 41 7 39.2091 7 37V11C7 8.79086 8.79086 7 11 7Z"
                 ></path>
             </svg>
         );

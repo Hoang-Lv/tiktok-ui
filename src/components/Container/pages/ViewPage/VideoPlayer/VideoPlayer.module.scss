@@ -25,7 +25,7 @@
         padding: 0 85px;
         font-size: 1.5rem;
         font-weight: 400;
-        color: var(--white-color);
+        color: var(--white-to-black);
         transition: opacity 0.1s linear;
         .time-line {
             flex: 1;
@@ -54,7 +54,7 @@
                     bottom: 50%;
                     height: 100%;
                     transform: translateY(50%);
-                    background-color: var(--white-color);
+                    background-color: var(--white-to-black);
                 }
             }
             .time-line_btn {
@@ -74,7 +74,7 @@
                     appearance: none;
                     width: 15px;
                     height: 15px;
-                    background-color: var(--white-color);
+                    background-color: var(--white-to-black);
                     border-radius: 50%;
                 }
             }
@@ -91,7 +91,7 @@
         left: 50%;
         transform: translate(-50%, -50%);
         font-size: 5.5rem;
-        color: var(--white-color);
+        color: var(--white-to-black);
         transition: opacity 0.1s linear;
     }
 
@@ -105,7 +105,7 @@
         width: 40px;
         height: 40px;
         background-color: rgba(77, 77, 77, 0.318);
-        color: var(--white-color);
+        color: var(--white-to-black);
         font-size: 3rem;
         border-radius: 50%;
     }
@@ -147,7 +147,7 @@
                         width: 15px;
                         height: 15px;
                         border-radius: 50%;
-                        background-color: var(--white-color);
+                        background-color: var(--white-to-black);
                     }
                 }
             }
@@ -177,7 +177,7 @@
                 height: 40px;
                 border-radius: 50%;
                 font-size: 3rem;
-                color: var(--white-color);
+                color: var(--white-to-black);
                 background-color: rgba(77, 77, 77, 0.318);
                 cursor: pointer;
             }

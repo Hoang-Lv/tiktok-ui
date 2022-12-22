@@ -22,7 +22,7 @@ function Container({ profile, myProf, page, setPage }) {
                     onMouseLeave={(e) => {
                         setTag(videoTag ? 0 : 100);
                     }}
-                    style={{ color: videoTag ? 'var(--text-color)' : 'rgba(22, 24, 35, 0.5)' }}
+                    style={{ color: videoTag ? 'var(--text-color)' : 'var(--text-gray-to-white)' }}
                     className={cx('video-tab')}
                 >
                     <span>Video</span>
@@ -38,7 +38,7 @@ function Container({ profile, myProf, page, setPage }) {
                     onMouseLeave={(e) => {
                         setTag(videoTag ? 0 : 100);
                     }}
-                    style={{ color: !videoTag ? 'var(--text-color)' : 'rgba(22, 24, 35, 0.5)' }}
+                    style={{ color: !videoTag ? 'var(--text-color)' : 'var(--text-gray-to-white)' }}
                     className={cx('liked-tab')}
                 >
                     <Icons.Lock />

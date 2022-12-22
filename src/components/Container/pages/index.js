@@ -3,4 +3,5 @@ import Following from './Following';
 import Upload from './Upload';
 import Profiles from './Profiles';
 import ViewPage from './ViewPage';
-export { ForYou, Following, Upload, Profiles, ViewPage };
+import Feedback from './Feedback';
+export { ForYou, Following, Upload, Profiles, ViewPage, Feedback };

@@ -84,7 +84,7 @@
                 line-height: 25px;
             }
             span {
-                color: rgba(22, 24, 35, 0.75);
+                color: var(--text-gray-to-white);
                 font-weight: 400;
                 font-size: 16px;
                 line-height: 22px;
@@ -95,7 +95,7 @@
     }
     .user-bio {
         text-align: left;
-        color: rgb(22, 24, 35);
+        color: var(--placerholder-color);
         font-weight: 400;
         font-size: 16px;
         line-height: 22px;
@@ -207,7 +207,7 @@
             align-items: center;
             width: 100%;
             padding: 13px 0;
-            border-bottom: 1px solid rgba(22, 24, 35, 0.12);
+            border-bottom: 1px solid var(--separate);
             .more-tite {
                 flex: 1;
                 margin-left: 12px;

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import 'tippy.js/dist/tippy.css';
 import { Consumer } from '~/Context';
 
@@ -33,6 +33,8 @@ function Modal() {
             case 'loginForm':
                 setTypeofForm('login');
                 break;
+            default:
+                console.log('error');
         }
     };
     if (!loginPopper) {

@@ -16,14 +16,15 @@ function InfiniteList(props) {
     const consumer = Consumer();
     const [, setForYouVideos] = consumer.forYouVideos;
     const [, setDirection] = consumer.direction;
-    const [state, setState] = consumer.state;
+    const [logInState, setLogInState] = consumer.logInState;
+    const [logOutState, setLogOutState] = consumer.logOutState;
     const [loadMore, setLoadMore] = useState(props.data.length === 0);
     const [loadPage, setLoadPage] = useState(props.data.currentPage || 1);
     const [showLoading, setShowLoading] = useState(false);
     const [autoPlay, setAutoPlay] = useState(0);
     const [nextTop, setNextTop] = useState(false);
     useEffect(() => {
-        const getData = async () => {
+        const getData = async (state) => {
             setShowLoading(true);
             const newArr = [];
             for (var i = 1; i <= loadPage; i++) {
@@ -32,14 +33,24 @@ function InfiniteList(props) {
             }
             props.setData(newArr);
             props.setForYouVideos((prev) => ({ ...prev, index: autoPlay }));
-            setState(false);
+            if (state === 'login') {
+                setLogInState(false);
+            }
+            if (state === 'logout') {
+                setLogOutState(false);
+            }
         };
-        if (props.isLogin && state) {
-            console.log(props.data);
+        if (props.isLogin && logInState) {
             props.setData([]);
-            getData();
+            getData('login');
             setLoadMore(true);
         }
+        if (!props.isLogin && logOutState) {
+            props.setData([]);
+            getData('logout');
+            setLoadMore(true);
+        }
+        // eslint-disable-next-line
     }, [props.isLogin]);
 
     const getData = async (load) => {
@@ -78,20 +89,14 @@ function InfiniteList(props) {
             for (var i = 0; i < item.length; i++) {
                 const placementTop = item[i]?.getBoundingClientRect().top;
                 const placementBottom = item[i]?.getBoundingClientRect().bottom;
-                const placementTop1 = item[1]?.getBoundingClientRect().top;
-                const placementBottom2 = item[0]?.getBoundingClientRect().bottom;
                 if (placementTop <= 310 && placementBottom >= 310) {
                     if (autoPlay !== i) {
                         setAutoPlay(i);
                     }
                 }
             }
-            // const index = Math.floor(-((placement?.y - 400) / placement?.height));
-            // if (autoPlay !== index) {
-            //     setAutoPlay(index);
-            // }
 
-            if (el.scrollTop + el.clientHeight === el.scrollHeight) {
+            if (el.scrollTop + el.clientHeight >= el.scrollHeight) {
                 setLoadMore(true);
                 setLoadPage((prev) => prev + 1);
             }
@@ -119,33 +124,32 @@ function InfiniteList(props) {
                 });
             }
         }
+        // eslint-disable-next-line
     }, [props.index]);
     useEffect(() => {
         getData(loadMore);
+        // eslint-disable-next-line
     }, [loadMore]);
-    const Video = props.data.map((user, index) => {
-        return (
-            <div key={index} className={cx('content-item', 'content_item')}>
-                <VideoElement
-                    setData={props.setData}
-                    users={props.data}
-                    data={user}
-                    index={index}
-                    localVolume={localVolume}
-                    volume={volume}
-                    setVolume={setVolume}
-                    setMuted={setMuted}
-                    muted={muted}
-                    state={autoPlay === index}
-                    poster={user.thumb_url}
-                    onClick={() => {
-                        handleSubmitViewPage(props.data, index);
-                    }}
-                />
-            </div>
-        );
-    });
-
+    const Video = props.data.map((user, index) => (
+        <div key={index} className={cx('content-item', 'content_item')}>
+            <VideoElement
+                setData={props.setData}
+                users={props.data}
+                data={user}
+                index={index}
+                localVolume={localVolume}
+                volume={volume}
+                setVolume={setVolume}
+                setMuted={setMuted}
+                muted={muted}
+                state={autoPlay === index}
+                poster={user.thumb_url}
+                onClick={() => {
+                    handleSubmitViewPage(props.data, index);
+                }}
+            />
+        </div>
+    ));
     return (
         <div id="content-list" className={cx('content-list')} onScroll={handleScroll}>
             {Video}

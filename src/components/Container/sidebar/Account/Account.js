@@ -70,7 +70,7 @@ function Account({ api, title, suggestedAcc, discovery, following }) {
                                 key={item.id}
                                 to={`${config.routes.profiles}${item.nickname}`}
                                 className={cx('discovery-acc_item')}
-                            >{`${item.full_name}-${item.nickname}`}</Link>
+                            >{`#${item.first_name} ${item.last_name}-${item.nickname}`}</Link>
                         );
                     } else {
                         return <AccountItem suggestedAcc={suggestedAcc} key={item.id} size="small" data={item} />;

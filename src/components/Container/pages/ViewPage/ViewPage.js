@@ -15,7 +15,8 @@ function ViewPage() {
     const data = Consumer();
     const [token] = data.token;
     const [isLogin] = data.isLogin;
-    const [state, setState] = data.state;
+    const [logInState, setLogInState] = data.logInState;
+    const [logOutState, setLogOutState] = data.logOutState;
     const [, setNickName] = data.nickName;
     // Lấy ra chuỗi nhằm điều hướng đến list video cần tìm (vd: list video foryouvideo trong context)
     let [direction] = data.direction;
@@ -23,7 +24,7 @@ function ViewPage() {
     // điều hướng đến list video khi đã có phương hướng
     const [videos, setVideos] = data[direction];
     let { videoList = [], index = 0, currentPage = '', loadPage = 1, route = '', userID } = videos;
-    if (videoList.length == 0) videoList = JSON.parse(localStorage.getItem('videos'));
+    if (videoList.length === 0) videoList = JSON.parse(localStorage.getItem('videos'));
     if (!index) index = JSON.parse(localStorage.getItem('index'));
     if (!currentPage) currentPage = JSON.parse(localStorage.getItem('videoSource'));
     if (!loadPage) loadPage = JSON.parse(localStorage.getItem('loadPage'));
@@ -85,7 +86,7 @@ function ViewPage() {
             }
         }
         if (!direction) {
-            window.location.href = 'http://localhost:4000/';
+            window.location.href = 'http://isha.ml//';
         }
         setLoadMore(false);
     };
@@ -126,7 +127,7 @@ function ViewPage() {
             for (var i = 1; i <= page; i++) {
                 const res = await ForYouVideos('for-you', i, token);
                 if (res.length > 0) newArr.push(...res);
-                setState(false);
+                setLogInState(false);
             }
             setVideos({
                 ...videos,
@@ -134,9 +135,10 @@ function ViewPage() {
                 loadPage: page,
             });
         };
-        if (isLogin && state) {
+        if (isLogin && logInState) {
             getData();
         }
+
         // eslint-disable-next-line
     }, [isLogin]);
     useEffect(() => {
@@ -277,6 +279,7 @@ function ViewPage() {
                         setVideos={setVideos}
                         token={token}
                         setNickName={setNickName}
+                        currentIndex={currentIndex}
                     />
                 </div>
             </div>

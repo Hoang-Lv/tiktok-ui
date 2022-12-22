@@ -2,8 +2,9 @@ const routes = {
     home: '/',
     following: '/following',
     upload: '/upload',
-    profiles: '/@:name',
+    profiles: '/:user_',
     live: '/live',
-    video: '/&:uuid',
+    video: `/view-page`,
+    feedback: `/feedback`,
 };
 export default routes;

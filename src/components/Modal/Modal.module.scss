@@ -23,7 +23,7 @@
         height: 80%;
         max-height: 693px;
         padding: 48px 0 0 0;
-        background-color: white;
+        background-color: var(--white-to-gray3);
         border-radius: 8px;
         overflow: hidden;
         .login-header {
@@ -73,7 +73,7 @@
             height: 64px;
             font-size: 1.5rem;
             line-height: 1.8rem;
-            border: 1px solid #e3e3e4;
+            border-top: 1px solid var(--white-to-gray);
             span {
                 display: contents;
                 color: var(--primary-color);
@@ -99,7 +99,7 @@
             height: 34px;
             font-size: 2.8rem;
             color: var(--text-color);
-            background-color: rgba(0, 0, 0, 0.07);
+            background-color: var(--gray);
             border-radius: 50%;
             cursor: pointer;
         }
@@ -166,7 +166,7 @@
                         font-weight: bold;
                         line-height: 2.4rem;
                         &.rule-item_title--all {
-                            color: rgba(22, 24, 35, 0.75);
+                            color: var(--text-gray-to-white);
                             font-weight: 400;
                         }
                     }
@@ -194,10 +194,10 @@
             width: 100%;
             border: none;
             border-radius: 4px;
-            color: rgba(22, 24, 35, 0.34);
-            background-color: rgba(22, 24, 35, 0.06);
+            color: var(--text-gray-to-white3);
+            background-color: var(--gray);
             &.active {
-                color: var(--white-color);
+                color: var(--white-to-black);
                 background-color: var(--primary-color);
                 cursor: pointer;
             }
@@ -227,7 +227,7 @@
 .warning-header {
     font-size: 1.4rem;
     line-height: 1.5rem;
-    color: rgb(22, 24, 35);
+    color: var(--placerholder-color);
     font-weight: 600;
     margin: 4px 0px;
 }
@@ -243,11 +243,11 @@
     align-items: center;
     font-size: 10px;
     margin-right: 5px;
-    color: rgba(22, 24, 35, 0.5);
+    color: var(--text-gray-to-white);
 }
 .warning-title {
     font-size: 12px;
     line-height: 15px;
     margin: 4px 0px;
-    color: rgba(22, 24, 35, 0.5);
+    color: var(--text-gray-to-white);
 }

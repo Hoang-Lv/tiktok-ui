@@ -8,11 +8,11 @@ import Context from './Context';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-    <GlobalStyles>
-        <Context>
+    <Context>
+        <GlobalStyles>
             <App />
-        </Context>
-    </GlobalStyles>,
+        </GlobalStyles>
+    </Context>,
 );
 
 // If you want to start measuring performance in your app, pass a function

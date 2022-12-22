@@ -108,14 +108,18 @@
                                 width: 32px;
                                 height: 32px;
                                 border-radius: 50%;
-                                background-color: #f1f1f2;
+                                background-color: var(--gray-to-graydark);
                                 display: flex;
                                 justify-content: center;
                                 align-items: center;
                                 font-size: 2rem;
                                 margin-right: 8px;
+                                svg {
+                                    color: var(--text-color);
+                                }
                                 &.like-action {
                                     padding-top: 2px;
+
                                     &.active {
                                         animation: backgroundPopper 1s ease;
                                         svg {
@@ -125,13 +129,13 @@
                                     }
                                     @keyframes backgroundPopper {
                                         0% {
-                                            background-color: rgba(22, 24, 35, 0.06);
+                                            background-color: var(--gray);
                                         }
                                         50% {
                                             background-color: rgba(22, 24, 35, 0.193);
                                         }
                                         100% {
-                                            background-color: rgba(22, 24, 35, 0.06);
+                                            background-color: var(--gray);
                                         }
                                     }
                                     @keyframes popper {
@@ -154,7 +158,7 @@
                                     }
 
                                     p {
-                                        color: rgba(22, 24, 35, 0.75);
+                                        color: var(--text-gray-to-white);
                                         font-weight: 700;
                                         font-size: 1.2rem;
                                         line-height: 1.7rem;
@@ -162,7 +166,7 @@
                                 }
                             }
                             .count {
-                                color: rgba(22, 24, 35, 0.75);
+                                color: var(--text-gray-to-white);
                                 font-size: 12px;
                                 line-height: 17px;
                                 text-align: center;
@@ -186,10 +190,10 @@
                     margin-top: 16px;
                     font-size: 14px;
                     line-height: 20px;
-                    color: rgba(22, 24, 35, 0.75);
-                    border: 1px solid #e3e3e4;
-                    border-radius: 2px;
-                    background-color: rgba(22, 24, 35, 0.06);
+                    color: var(--text-gray-to-white);
+                    border: 1px solid var(--gray-to-transparent);
+                    border-radius: 6px;
+                    background-color: var(--gray);
                     p {
                         text-overflow: ellipsis;
                         overflow: hidden;
@@ -202,7 +206,7 @@
                         border: none;
                         background: transparent;
                         outline: none;
-                        color: rgb(22, 24, 35);
+                        color: var(--placerholder-color);
                         font-weight: 700;
                         flex: 0 0 auto;
                         cursor: pointer;
@@ -219,10 +223,10 @@
     .comment-list {
         width: 100%;
         padding: 24px 32px;
+        background-color: var(--white-to-black);
         box-sizing: border-box;
-        background-color: rgb(248, 248, 248);
-        border-top: 1px solid rgba(22, 24, 35, 0.2);
-        border-bottom: 1px solid rgba(22, 24, 35, 0.2);
+        border-top: 1px solid var(--separate);
+        border-bottom: 1px solid var(--separate);
         overflow: hidden auto;
         -webkit-box-flex: 1;
         flex-grow: 1;
@@ -259,14 +263,14 @@
                     margin-bottom: 6px;
                 }
                 .timer-and-answer {
-                    color: rgba(22, 24, 35, 0.5);
+                    color: var(--text-gray-to-white);
                     font-size: 14px;
                     line-height: 20px;
                     .timer {
                     }
                     .answer {
                         cursor: pointer;
-                        color: rgba(22, 24, 35, 0.5);
+                        color: var(--text-gray-to-white);
                         font-weight: 400;
                         margin-left: 24px;
                     }
@@ -290,7 +294,7 @@
                     cursor: pointer;
                 }
                 .like-wrap {
-                    color: rgba(22, 24, 35, 0.5);
+                    color: var(--text-gray-to-white);
                     font-size: 2rem;
                     line-height: 2rem;
                     width: 20px;
@@ -313,7 +317,7 @@
         display: flex;
         align-items: center;
         flex: 0 0 auto;
-        background-color: rgb(255, 255, 255);
+        background-color: var(--white-to-black);
         margin: 0px 30px;
         padding: 21px 0px;
         .input-wrap {
@@ -322,7 +326,7 @@
             align-items: center;
             position: relative;
             height: 40px;
-            background-color: rgba(22, 24, 35, 0.06);
+            background-color: var(--gray);
 
             border: 1px solid transparent;
             border-radius: 8px;
@@ -334,6 +338,7 @@
                 flex: 1;
                 line-height: 2rem;
                 font-size: 1.6rem;
+                color: var(--text-gray-to-white);
                 background-color: transparent;
             }
             span {
@@ -347,7 +352,7 @@
             }
         }
         .post-btn {
-            color: rgba(22, 24, 35, 0.34);
+            color: var(--text-gray-to-white3);
             font-size: 1.4rem;
             cursor: default;
             flex: 0 0 48px;
@@ -369,7 +374,7 @@
         top: -18px;
         border-width: 10px 10px;
         border-style: solid;
-        border-color: transparent transparent rgb(255, 255, 255) transparent;
+        border-color: transparent transparent var(--white-to-black) transparent;
     }
     .option-item {
         height: 100%;
@@ -412,7 +417,7 @@
     }
     .modal-container {
         width: 310px;
-        background-color: var(--white-color);
+        background-color: var(--white-to-black);
         z-index: 1000;
         position: relative;
         border-radius: 8px;
@@ -434,7 +439,7 @@
                     background: none;
                     outline: none;
                     padding: 0px;
-                    color: rgb(22, 24, 35);
+                    color: var(--placerholder-color);
                     font-weight: 600;
                     font-size: 14px;
                     height: 48px;
@@ -447,18 +452,18 @@
                         width: 100%;
                         height: 1px;
                         display: block;
-                        background: rgba(22, 24, 35, 0.12);
+                        background: var(--separate);
                     }
                     &::after {
                         content: '';
                         width: 100%;
                         height: 1px;
                         display: block;
-                        background: rgba(22, 24, 35, 0.12);
+                        background: var(--separate);
                     }
                 }
                 .cancel-btn {
-                    color: rgba(22, 24, 35, 0.5);
+                    color: var(--text-gray-to-white);
                     font-weight: 400;
                 }
             }
@@ -507,7 +512,7 @@
         flex-wrap: nowrap;
         width: 100%;
         height: 50px;
-        border-top: 1px solid rgba(22, 24, 35, 0.12);
+        border-top: 1px solid var(--separate);
         overflow: hidden;
         .emoji-item {
             margin-right: 8px;
@@ -537,7 +542,7 @@
             padding: 4px 0px;
             margin: 0px 16px;
             cursor: pointer;
-            border-bottom: 1px solid rgba(22, 24, 35, 0.12);
+            border-bottom: 1px solid var(--separate);
             .frient-avatar {
                 flex: 0 0 40px;
                 width: 40px;
@@ -562,7 +567,7 @@
                     }
                     .follow-state {
                         margin-left: 10px;
-                        color: rgba(22, 24, 35, 0.5);
+                        color: var(--text-gray-to-white);
                         font-weight: 600;
                         font-size: 12px;
                         line-height: 17px;

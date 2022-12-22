@@ -12,6 +12,7 @@ import Button from '../Button';
 import { Consumer } from '~/Context';
 const cx = classNames.bind(style);
 function AccountItem({ data, size, suggestedAcc, onClick }) {
+    // const { type } = useParams();
     const [, setNickName] = Consumer().nickName;
     const { full_name, first_name, last_name, tick, id, avatar, nickname, is_followed, ...props } = data;
 
@@ -19,6 +20,7 @@ function AccountItem({ data, size, suggestedAcc, onClick }) {
         setNickName(nickname);
         localStorage.setItem('nickname', JSON.stringify(nickname));
     };
+    // console.log(type);
     if (suggestedAcc) {
         return (
             <Tippy

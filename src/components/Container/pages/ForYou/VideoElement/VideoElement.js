@@ -38,6 +38,7 @@ function VideoElement({
     const consumer = Consumer();
     const [token] = consumer.token;
     const [isLogin] = consumer.isLogin;
+    const [, setUuid] = consumer.uuid;
     const [, setLoginPopper] = consumer.loginPopper;
     const [, setNickName] = consumer.nickName;
     const [likeState, setLikeState] = useState(is_liked);
@@ -131,36 +132,66 @@ function VideoElement({
                 <Avatars src={avatar} atl={nickname} width={56} height={56} />
             </Link>
             <div className={cx('video-wrap')}>
-                <div className={cx('video-header')}>
-                    <Link
-                        className={cx('author-name')}
-                        to={`${config.routes.profiles}${nickname}`}
-                        onClick={() => handleSubmitAcc(data)}
-                    >
-                        <h3 className={cx('full-name')}>{`${first_name} ${last_name}`}</h3>
-                        {tick ? (
-                            <span className={cx('check')}>
-                                <Icons.Check />
-                            </span>
+                <div className={cx('video-header--wrap')}>
+                    <div className={cx('video-header')}>
+                        <Link
+                            className={cx('author-name')}
+                            to={`${config.routes.profiles}${nickname}`}
+                            onClick={() => handleSubmitAcc(data)}
+                        >
+                            <h3 className={cx('full-name')}>{`${first_name} ${last_name}`}</h3>
+                            {tick ? (
+                                <span className={cx('check')}>
+                                    <Icons.Check />
+                                </span>
+                            ) : null}
+                            <span className={cx('nick-name')}>{nickname}</span>
+                        </Link>
+                        <p
+                            className={cx('video-description')}
+                            style={data.music.length > 0 ? {} : { marginBottom: 12 }}
+                        >
+                            {data.description}
+                        </p>
+                        {data.music.length > 0 ? (
+                            <h4 className={cx('video-music')}>
+                                <Icons.Music />
+                                Nhạc xinh quá
+                            </h4>
                         ) : null}
-                        <span className={cx('nick-name')}>{nickname}</span>
-                    </Link>
-                    <p className={cx('video-description')} style={data.music.length > 0 ? {} : { marginBottom: 12 }}>
-                        {data.description}
-                    </p>
-                    {data.music.length > 0 ? (
-                        <h4 className={cx('video-music')}>
-                            <Icons.Music />
-                            Nhạc xinh quá
-                        </h4>
-                    ) : null}
+                    </div>
+                    <div className={cx('follow-btn')}>
+                        {followState ? (
+                            <Button
+                                content={'Đang Follow'}
+                                btnStyle={'basic_style-following'}
+                                width={88}
+                                height={28}
+                                onClick={() => {
+                                    handleFollow(id, 'unfollow');
+                                }}
+                            />
+                        ) : (
+                            <Button
+                                loginType
+                                content={'Follow'}
+                                btnStyle={'primary-color--border_style'}
+                                width={88}
+                                height={28}
+                                onClick={() => {
+                                    handleFollow(id, 'follow');
+                                }}
+                            />
+                        )}
+                    </div>
                 </div>
+
                 <div className={cx('video-play')}>
                     <div
                         className={cx('video')}
                         style={height >= width ? { maxHeight: 520, height: 520 } : { maxWidth: 520, width: 520 }}
                     >
-                        <Link to={`${config.routes.video}${data.uuid}`} className={cx('video-link')}>
+                        <Link to={`${config.routes.video}`} className={cx('video-link')}>
                             <video
                                 id={`video-${index}`}
                                 muted={muted}
@@ -168,6 +199,7 @@ function VideoElement({
                                 loop
                                 poster={poster}
                                 onClick={(e) => {
+                                    setUuid();
                                     setOnPlay(false);
                                     onClick();
                                 }}
@@ -224,7 +256,7 @@ function VideoElement({
                         </div>
                         <Link
                             className={cx('comment', 'action-wrap')}
-                            to={isLogin ? `${config.routes.video}${data.uuid}` : ''}
+                            to={isLogin ? `${config.routes.video}` : ''}
                             onClick={() => {
                                 if (!isLogin) {
                                     setLoginPopper(true);
@@ -248,30 +280,6 @@ function VideoElement({
                         </div>
                     </div>
                 </div>
-            </div>
-            <div className={cx('follow-btn')}>
-                {followState ? (
-                    <Button
-                        content={'Đang Follow'}
-                        btnStyle={'basic_style-following'}
-                        width={88}
-                        height={28}
-                        onClick={() => {
-                            handleFollow(id, 'unfollow');
-                        }}
-                    />
-                ) : (
-                    <Button
-                        loginType
-                        content={'Follow'}
-                        btnStyle={'primary-color--border_style'}
-                        width={88}
-                        height={28}
-                        onClick={() => {
-                            handleFollow(id, 'follow');
-                        }}
-                    />
-                )}
             </div>
         </>
     );

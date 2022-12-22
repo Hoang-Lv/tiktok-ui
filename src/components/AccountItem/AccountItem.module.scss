@@ -29,7 +29,7 @@
         p {
             max-width: 230px;
             margin: 0;
-            color: rgba(22, 24, 35, 0.5);
+            color: var(--text-gray-to-white);
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
@@ -59,7 +59,7 @@
         margin-right: 12px;
     }
     &:hover {
-        background-color: #f8f8f8;
+        background-color: var(--white-to-gray2-hover);
         border-radius: 4px;
     }
     &.big .name_wrap {

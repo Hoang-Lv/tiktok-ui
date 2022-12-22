@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { Consumer } from '~/Context';
 import classNames from 'classnames/bind';
 import styles from './Profiles.module.scss';
@@ -9,7 +10,8 @@ import ShowLoading from '~/components/ShowLoading';
 const cx = classNames.bind(styles);
 function Profiles() {
     const context = Consumer();
-    let [nickName] = context.nickName;
+    const { user_ } = useParams();
+    let nickName = user_.slice(6);
     const [token] = context.token;
     const [isLogin] = context.isLogin;
     const [authMe] = context.auth;

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import 'tippy.js/dist/tippy.css';
 import { Consumer } from '~/Context';
+
 import Icons from '~/components/asset/Icons';
 import Rules from './Rules';
 import BirtofDay from './BirtofDay';
@@ -78,7 +79,7 @@ const registerOptions = [
 ];
 
 const calender = new Date();
-const currentMonth = calender.getMonth();
+// const currentMonth = calender.getMonth();
 const currentYear = calender.getFullYear();
 const months = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
@@ -196,14 +197,14 @@ function Container({ type, typeofForm, formValue, setFormValue, setLoginPopper, 
             inputList[0].checked = true;
             Object.assign(ruleBtn.style, {
                 backgroundColor: 'var(--primary-color)',
-                color: 'var(--white-color)',
+                color: 'var(--white-to-black)',
                 cursor: 'pointer',
             });
         } else {
             inputList[0].checked = false;
             Object.assign(ruleBtn.style, {
                 backgroundColor: 'rgba(22, 24, 35, 0.06)',
-                color: 'rgba(22, 24, 35, 0.34)',
+                color: 'var(--text-gray-to-white3)',
                 cursor: 'default',
             });
         }
@@ -311,7 +312,7 @@ function Container({ type, typeofForm, formValue, setFormValue, setLoginPopper, 
                                             } else {
                                                 Object.assign(ruleBtn.style, {
                                                     backgroundColor: 'rgba(22, 24, 35, 0.06)',
-                                                    color: 'rgba(22, 24, 35, 0.34)',
+                                                    color: 'var(--text-gray-to-white3)',
                                                     cursor: 'default',
                                                 });
                                             }
@@ -504,6 +505,9 @@ function Container({ type, typeofForm, formValue, setFormValue, setLoginPopper, 
                     </div>
                 </>
             );
+
+        default:
+            console.log('error');
     }
 }
 export default Container;

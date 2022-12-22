@@ -14,3 +14,4 @@ export { default as LikeAComment } from './LikeAComment';
 export { default as CreateAComment } from './CreateAComment';
 export { default as DeleteAComment } from './DeleteAComment';
 export { default as GetUsersVideos } from './GetUsersVideos';
+export { default as LogOut } from './LogOut';

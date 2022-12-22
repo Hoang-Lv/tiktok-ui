@@ -12,14 +12,14 @@
         justify-content: space-between;
         -webkit-box-align: center;
         align-items: center;
-        color: rgba(22, 24, 35, 0.34);
+        color: var(--text-gray-to-white3);
         font-size: 16px;
         .selector-icon {
             display: flex;
             justify-content: center;
             align-items: center;
             font-size: 1.5rem;
-            color: rgb(22, 24, 35);
+            color: var(--placerholder-color);
             transform: rotateZ(0deg);
             transition: all 0.3s ease 0s;
         }
@@ -31,7 +31,7 @@
     max-height: 320px;
     overflow: auto;
 
-    background: rgb(255, 255, 255);
+    background: var(--white-to-black);
     border-radius: 4px;
     box-shadow: rgb(0 0 0 / 12%) 0px 2px 12px;
 
@@ -47,7 +47,7 @@
         justify-content: space-between;
         -webkit-box-align: center;
         align-items: center;
-        color: rgb(22, 24, 35);
+        color: var(--placerholder-color);
         background: unset;
         .month {
         }

@@ -6,6 +6,9 @@ import 'tippy.js/dist/tippy.css';
 import { Consumer } from '~/Context';
 import classNames from 'classnames/bind';
 import styles from './HeaderMenu.module.scss';
+
+import { LogOut } from '~/services';
+import config from '~/config';
 import { Wrapper as PopperWapper } from '~/components/Popper';
 import Icons from '~/components/asset/Icons';
 const cx = classNames.bind(styles);
@@ -14,10 +17,16 @@ function HeaderMenu({ data = [], children }) {
     const [menu, setMenu] = useState([{ data: data }]);
     const MenuItems = menu[menu.length - 1];
     const context = Consumer();
+
     let [, setNickName] = context.nickName;
-    const [token] = context.token;
-    const [isLogin] = context.isLogin;
-    const [authMe] = context.auth;
+    const [token, setToken] = context.token;
+    const [isLogin, setIsLogin] = context.isLogin;
+    const [authMe, setAuthMe] = context.auth;
+    const [logInState, setLogInState] = context.logInState;
+    const [, setLogOutState] = context.logOutState;
+    const [darkmode, setDarkMode] = context.darkmode;
+    const [showKeyboadShort, setShowKeyboadShort] = context.showKeyboadShort;
+
     let Items;
     // when is back before menu
     const handleBackPage = () => {
@@ -29,17 +38,34 @@ function HeaderMenu({ data = [], children }) {
         });
         setMenu(newarr);
     };
+    const handleDarkMode = () => {
+        setDarkMode(!darkmode);
+        if (darkmode) localStorage.setItem('theme', 'light');
+        else localStorage.setItem('theme', 'dark');
+    };
 
     if (menu.length === 1) {
         Items = MenuItems.data.map(
-            ({ content, icon, isTrue, href, to, myProfile, onClick = () => {}, childrens, cl, ...props }, index) => {
+            ({ content, icon, isTrue, href, to, onClick = () => {}, childrens, cl, type, ...props }, index) => {
                 const isParent = !!childrens;
 
                 // when is next after menu if isParent is true
                 const handleNextPage = () => {
                     if (isParent) setMenu((prev) => [...prev, childrens]);
-                    if (myProfile && isLogin) {
+                    if (type === 'myProfile' && isLogin) {
                         setNickName(authMe.nickname);
+                        localStorage.setItem('nickname', authMe.nickname);
+                    }
+                    if (type === 'logOut') {
+                        LogOut(token);
+                        setToken('');
+                        setIsLogin(false);
+                        setAuthMe({});
+                        setLogInState(true);
+                        setLogOutState(true);
+                    }
+                    if (type === 'keyboardShort') {
+                        setShowKeyboadShort(true);
                     }
                 };
 
@@ -52,6 +78,10 @@ function HeaderMenu({ data = [], children }) {
                     passProps.to = to;
                     Type = Link;
                 }
+                if (type === 'myProfile' && isLogin) {
+                    passProps.to = `${config.routes.profiles}${authMe.nickname}`;
+                    Type = Link;
+                }
                 if (href) {
                     passProps.href = href;
                     Type = 'a';
@@ -60,6 +90,23 @@ function HeaderMenu({ data = [], children }) {
                     <Type key={index} className={cx('header_menu-item', cl)} {...passProps} onClick={handleNextPage}>
                         {icon && <span className={cx('icon')}>{icon}</span>}
                         <span className={cx('content')}>{content}</span>
+                        {type === 'dark-mode' ? (
+                            <button
+                                className={cx('dark-mode')}
+                                style={darkmode ? { background: 'rgb(11, 224, 155)' } : {}}
+                                onClick={handleDarkMode}
+                            >
+                                <span
+                                    style={
+                                        darkmode
+                                            ? { left: 'calc(100% - 2px)', transform: 'translate(-100%, -50%)' }
+                                            : {}
+                                    }
+                                ></span>
+                            </button>
+                        ) : (
+                            ''
+                        )}
                     </Type>
                 );
             },

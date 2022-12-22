@@ -2,11 +2,12 @@ import { memo, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Tippy from '@tippyjs/react/headless';
 import 'tippy.js/dist/tippy.css';
-import { Wrapper } from '~/components/Popper';
 
+import { Wrapper } from '~/components/Popper';
 import Avatars from '~/components/asset/Avatars';
 import Icons from '~/components/asset/Icons';
 import Button from '~/components/Button';
+import StatePopup from '~/components/StatePopup';
 
 import config from '~/config';
 import {
@@ -93,7 +94,7 @@ const Emoji = [
 ];
 const popularEmoji = ['😀', '😅', '😍', '🥰', '😝'];
 
-function Comments({ video, videos, setVideos, setNickName }) {
+function Comments({ video, videos, setVideos, setNickName, currentIndex }) {
     const user = video?.user;
     const href = window.location.href;
 
@@ -104,6 +105,7 @@ function Comments({ video, videos, setVideos, setNickName }) {
     const [authMe] = consumer.auth;
     const [likeState, setLikeState] = useState();
     const [likesCound, setLikesCound] = useState();
+    const [commentsCound, setCommentsCound] = useState();
     const [comments, setComments] = useState([]);
     const [inputValue, setInputValue] = useState('');
     const [isFollowed, setIsFollowed] = useState(user?.is_followed);
@@ -114,6 +116,8 @@ function Comments({ video, videos, setVideos, setNickName }) {
     const [showUserTags, setShowUserTags] = useState(false);
     const [placementTag, setPlacementTag] = useState({ placement: -1, key: '' });
     const [callApiState, setCallApiState] = useState(true);
+    const [postState, setPostState] = useState(false);
+    const [removeState, setRemoveState] = useState(false);
     // const GetUsers = async (plm, key) => {
     //     // console.log(plm, key);
     //     if (key.length === 0) {
@@ -143,10 +147,11 @@ function Comments({ video, videos, setVideos, setNickName }) {
     // };
 
     const GetaVideoApi = async () => {
-        const liked = await GetaVideo(video.uuid, token);
-        setIsFollowed(liked.user.is_followed);
-        setLikeState(liked.is_liked);
-        setLikesCound(liked.likes_count);
+        const res = await GetaVideo(video.uuid, token);
+        setIsFollowed(res.user.is_followed);
+        setLikeState(res.is_liked);
+        setLikesCound(res.likes_count);
+        setCommentsCound(res.comments_count);
     };
     const GetCommentApi = async () => {
         const res = await GetComment(video.id, token);
@@ -202,18 +207,29 @@ function Comments({ video, videos, setVideos, setNickName }) {
         if (isLogin) {
             if (inputValue.length > 0) {
                 const res = await CreateAComment(video.uuid, token, inputValue);
-
-                setComments([res, ...comments]);
-                setInputValue('');
+                if (res) {
+                    setComments([res, ...comments]);
+                    setInputValue('');
+                    const newVideo = { ...video, comments_count: comments.length + 1 };
+                    videos.splice(currentIndex, 1, newVideo);
+                    setVideos((prev) => ({ ...prev, videoList: videos }));
+                    setPostState(true);
+                    setTimeout(() => setPostState(false), 2000);
+                }
             }
         } else {
             setLoginPopper(true);
         }
     };
-    const handleRemoveComment = () => {
+    const handleRemoveComment = async () => {
         setShowOptions(false);
-        DeleteAComment(commentID, token);
+        const res = await DeleteAComment(commentID, token);
+        const newVideo = { ...video, comments_count: comments.length - 1 };
+        videos.splice(currentIndex, 1, newVideo);
+        setVideos((prev) => ({ ...prev, videoList: videos }));
         GetCommentApi();
+        setRemoveState(true);
+        setTimeout(() => setRemoveState(false), 2000);
     };
     const handleInputValue = (e) => {
         const value = e.target.value;
@@ -266,9 +282,7 @@ function Comments({ video, videos, setVideos, setNickName }) {
         setInputValue((prev) => `${prev}${item.innerText}`);
         document.getElementById('input').focus();
     };
-    window.onclick = function () {
-        if (showEmoji) setShowEmoji(false);
-    };
+
     useEffect(() => {
         setComments([]);
         GetaVideoApi();
@@ -285,6 +299,9 @@ function Comments({ video, videos, setVideos, setNickName }) {
         // eslint-disable-next-line
     }, [isLogin]);
 
+    window.onclick = function () {
+        if (showEmoji) setShowEmoji(false);
+    };
     window.onkeyup = function (e) {
         if (e.which === 13 && inputValue.length > 0) {
             handlePostComment();
@@ -293,6 +310,8 @@ function Comments({ video, videos, setVideos, setNickName }) {
     };
     return (
         <div className={cx('comments')}>
+            {postState ? <StatePopup content="Đã đăng bình luận" size={200} /> : ''}
+            {removeState ? <StatePopup content="Đã xóa bình luận" /> : ''}
             <div className={cx('comments-header')}>
                 <div className={cx('user-info')}>
                     <Link
@@ -331,7 +350,7 @@ function Comments({ video, videos, setVideos, setNickName }) {
                             content={isFollowed ? 'Đang follow' : 'Follow'}
                             width={106}
                             height={36}
-                            btnStyle={isFollowed ? 'basic_style-followings' : 'primary-color--border_style'}
+                            btnStyle={isFollowed ? 'basic_style-following' : 'primary-color--border_style'}
                             onClick={() => {
                                 setIsFollowed(!isFollowed);
                                 Follow(user.id, isFollowed ? 'unfollow' : 'follow', token);
@@ -355,7 +374,9 @@ function Comments({ video, videos, setVideos, setNickName }) {
                                     <span className={cx('comment-action', 'action')}>
                                         <Icons.Comment />
                                     </span>
-                                    <strong className={cx('comment-count', 'count')}>{video.comments_count}</strong>
+                                    <strong className={cx('comment-count', 'count')}>
+                                        {isLogin ? comments.length : commentsCound}
+                                    </strong>
                                 </button>
                             </div>
                             <div className={cx('connect-methods')}>
@@ -420,7 +441,7 @@ function Comments({ video, videos, setVideos, setNickName }) {
                         const hourR = hour - time[0];
                         const minuteR = minute - time[1];
                         if (yearR >= 2) return `${yearR} năm trước`;
-                        if (monthR == 0 && yearR > 0) return `${yearR} năm trước`;
+                        if (monthR === 0 && yearR > 0) return `${yearR} năm trước`;
                         if (monthR > 0 && yearR > 0) return `${yearR} năm ${monthR} tháng trước`;
                         if (monthR < 0 && yearR > 0) return `${month + 12 - date[1]} tháng trước`;
                         if (monthR === 1 && dayR < 0) return `${day + fullday - date[2]} ngày trước`;
@@ -461,7 +482,7 @@ function Comments({ video, videos, setVideos, setNickName }) {
                             </div>
                             <div className={cx('comment-action')}>
                                 <Tippy
-                                    // parent={document.body}
+                                    appendTo={document.body}
                                     interactive
                                     offset={[8, 6]}
                                     delay={[0, 200]}

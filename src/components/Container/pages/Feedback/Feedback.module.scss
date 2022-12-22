@@ -1,0 +1,192 @@
+.feedback {
+    width: 100%;
+    padding: 0 24px 0 20px;
+    margin: 24px 0;
+    .header {
+        padding-top: 24px;
+        .title {
+            font-size: 3.2rem;
+            line-height: 3.8rem;
+            color: var(--text-color);
+        }
+        .select-category {
+            margin-top: 8px;
+            font-size: 16px;
+            line-height: 22px;
+            font-weight: 600;
+            color: var(--text-gray-to-white);
+            .selected-category {
+                .selected-category_lever1 {
+                    cursor: pointer;
+                    color: var(--text-color);
+                    font-weight: 600;
+                    &.active::after {
+                        content: '>';
+                        display: inline-block;
+                        margin: 0px 8px;
+                        cursor: auto;
+                        pointer-events: none;
+                        font-weight: 400;
+                        color: var(--text-gray-to-white);
+                    }
+                }
+                .selected-category_lever2 {
+                    color: var(--text-gray-to-white);
+                    font-weight: 400;
+                }
+            }
+        }
+    }
+    .container {
+        margin-top: 24px;
+        display: flex;
+        .category-list {
+            width: 331px;
+            .category-item {
+                position: relative;
+                width: 100%;
+                padding: 16px 0;
+                &.active::before {
+                    content: '';
+                    position: absolute;
+                    top: 50%;
+                    left: -8px;
+                    width: 2px;
+                    height: calc(100% - 32px);
+                    transform: translateY(-50%);
+                    background-color: var(--primary-color);
+                }
+                cursor: pointer;
+                .category-content {
+                    font-weight: 600;
+                    font-size: 16px;
+                    line-height: 22px;
+                    padding-right: 12px;
+                }
+                .category-icon {
+                    position: absolute;
+                    top: 50%;
+                    width: 12px;
+                    height: 12px;
+                    right: 0px;
+                    transform: translateY(-50%);
+                }
+            }
+        }
+
+        .content {
+            width: 724px;
+            padding: 48px;
+            border-radius: 8px;
+            box-shadow: 2px 4px 20px rgb(80 102 102 / 20%);
+            margin-left: 54px;
+            background-color: var(--white-to-gray);
+            .content-title {
+                margin-bottom: 24px;
+                padding-left: 2px;
+                font-size: 24px;
+                line-height: 28px;
+                font-weight: 700;
+            }
+            .content-item {
+                padding: 8px 0px;
+                min-height: 57px;
+                font-size: 16px;
+                font-weight: 600;
+                cursor: pointer;
+
+                .question-wrap {
+                    display: flex;
+                    -webkit-box-pack: justify;
+                    justify-content: space-between;
+                    -webkit-box-align: center;
+                    align-items: center;
+                    .question {
+                        flex: 1 1 0%;
+                        display: flex;
+                        -webkit-box-align: center;
+                        align-items: center;
+                        word-break: break-word;
+                        margin-right: 4px;
+                    }
+                    .question-icon {
+                        flex-shrink: 0;
+                        transform: rotate(0deg);
+                        transition: transform 300ms ease-in 0s;
+                    }
+                }
+                .content-answer {
+                    overflow: hidden;
+                    height: 0;
+                    transition: height 300ms ease-in-out 0s;
+
+                    .answer-wrap {
+                        padding: 12px 0px 8px;
+                        border-bottom: 1px solid rgba(22, 24, 35, 0.12);
+                        .answer {
+                            div {
+                                font-size: 16px;
+                                line-height: 22px;
+                                white-space: pre-line;
+                                word-break: break-word;
+                                font-weight: 400;
+                                color: var(--placeholder-color);
+                            }
+                        }
+                        .user-response {
+                            position: relative;
+                            box-sizing: border-box;
+                            width: 100%;
+                            height: 64px;
+                            margin-top: 24px;
+                            padding: 0px 12px;
+                            background-color: rgba(22, 24, 35, 0.03);
+                            border-radius: 4px;
+                            display: flex;
+                            -webkit-box-pack: justify;
+                            justify-content: space-between;
+                            -webkit-box-align: center;
+                            align-items: center;
+                            p {
+                                font-size: 16px;
+                                font-weight: 600;
+                            }
+                        }
+                        .response-btn {
+                            display: flex;
+                            -webkit-box-align: center;
+                            align-items: center;
+                            flex-shrink: 0;
+                            button {
+                                border: 1px solid var(--separate);
+                                border-radius: 4px;
+                                color: var(--text-color);
+                                background-color: var(--white-to-gray);
+                                min-width: 96px;
+                                min-height: 28px;
+                                margin-left: 8px;
+                                font-size: 14px;
+                                line-height: 17px;
+                                font-weight: 600;
+                                display: flex;
+                                position: relative;
+                                -webkit-box-align: center;
+                                align-items: center;
+                                -webkit-box-pack: center;
+                                justify-content: center;
+                                padding: 6px 8px;
+                                user-select: none;
+                                cursor: pointer;
+                                box-sizing: border-box;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .footer {
+        width: 100%;
+        min-height: 1000px;
+    }
+}

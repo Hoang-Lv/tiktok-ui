@@ -5,6 +5,7 @@ import Button from '../Button';
 import HeaderMenu from './HeaderMenu';
 import HeaderSearch from './HeaderSearch';
 import { Consumer } from '~/Context';
+import ShowOptionsPopper from '../ShowOptionsPopper';
 // import Icons
 import Icons from '../asset/Icons';
 import Avartars from '../asset/Avatars';
@@ -60,9 +61,12 @@ const MenuItems = [
     {
         content: 'Phím tắt trên bàn phím',
         icon: <Icons.Keyboard />,
-        onClick: () => {
-            alert('love');
-        },
+        type: 'keyboardShort',
+    },
+    {
+        content: 'Chế độ tối',
+        icon: <Icons.DarkMode />,
+        type: 'dark-mode',
     },
 ];
 const MenuItems2 = [
@@ -70,7 +74,7 @@ const MenuItems2 = [
         content: 'Xem hồ sơ',
         icon: <Icons.User />,
         to: `${config.routes.profiles}`,
-        myProfile: true,
+        type: 'myProfile',
     },
     {
         content: 'Nhận xu',
@@ -91,13 +95,15 @@ const MenuItems2 = [
         content: 'Đăng xuất',
         icon: <Icons.LogOut />,
         to: '/',
+        type: 'logOut',
         cl: 'logout',
     },
 ];
 function Header({ fullWidth }) {
-    const consumer = Consumer();
-    const [isLogin] = consumer.isLogin;
-    const [authMe] = consumer.auth;
+    const context = Consumer();
+    const [isLogin] = context.isLogin;
+    const [authMe] = context.auth;
+    const [showKeyboadShort, setShowKeyboadShort] = context.showKeyboadShort;
     return (
         <div className={cx('header')}>
             <div style={{ width: fullWidth ? '100%' : '' }} className={cx('header_wrap')}>
@@ -149,6 +155,7 @@ function Header({ fullWidth }) {
                         </>
                     )}
                 </div>
+                {showKeyboadShort ? <ShowOptionsPopper title="Phím tắt trên bàn phím" type="keyboardShort" /> : null}
             </div>
         </div>
     );

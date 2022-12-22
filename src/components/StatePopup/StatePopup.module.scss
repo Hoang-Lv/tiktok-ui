@@ -1,0 +1,36 @@
+.popup-wrap {
+    position: fixed;
+    top: 20px;
+    left: 0;
+    width: 100vw;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    z-index: 9999;
+    transform: translateY(-100px);
+    animation: popper 2s linear;
+    p {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 500px;
+        height: 100%;
+        color: var(--white-to-black);
+        background-color: rgba(46, 46, 46, 0.4);
+        border-radius: 2px;
+        font-size: 1.4rem;
+        font-weight: 500;
+    }
+}
+@keyframes popper {
+    10% {
+        transform: translateY(0);
+    }
+    90% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-100px);
+    }
+}

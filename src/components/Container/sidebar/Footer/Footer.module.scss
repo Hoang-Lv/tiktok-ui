@@ -8,7 +8,7 @@
             font-weight: 600;
             font-size: 1.2rem;
             line-height: 1.7rem;
-            color: rgba(22, 24, 35, 0.5);
+            color: var(--text-gray-to-white2);
             margin-right: 6px;
             margin-top: 5px;
         }
@@ -18,13 +18,13 @@
         font-weight: 600;
         font-size: 1.2rem;
         line-height: 1.7rem;
-        color: rgba(22, 24, 35, 0.5);
+        color: var(--text-gray-to-white2);
     }
     & > span {
         font-weight: 600;
         font-size: 1.2rem;
         line-height: 1.7rem;
-        color: rgba(22, 24, 35, 0.5);
+        color: var(--text-gray-to-white2);
     }
     &::before {
         content: '';
@@ -33,7 +33,7 @@
         right: 8px;
         left: 8px;
         height: 1px;
-        background: rgba(22, 24, 35, 0.12);
+        background: var(--separate);
     }
 }
 @media (max-width: 1050px) {

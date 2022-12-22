@@ -1,7 +1,8 @@
 import { createContext, useState } from 'react';
 export const ContextProfile = createContext();
 function Context({ children }) {
-    const [state, setState] = useState(true);
+    const [logInState, setLogInState] = useState(true);
+    const [logOutState, setLogOutState] = useState(false);
     // const [isMe, setIsMe] = useState(false);
     const [isLogin, setIsLogin] = useState(false);
     const [loginPopper, setLoginPopper] = useState(false);
@@ -13,8 +14,11 @@ function Context({ children }) {
     const [forYouVideos, setForYouVideos] = useState({});
     const [followingVideos, setFollowingVideos] = useState({});
     const [uuid, setUuid] = useState('');
+    const [darkmode, setDarkMode] = useState(false);
+    const [showKeyboadShort, setShowKeyboadShort] = useState(false);
     const data = {
-        state: [state, setState],
+        logInState: [logInState, setLogInState],
+        logOutState: [logOutState, setLogOutState],
         isLogin: [isLogin, setIsLogin],
         token: [token, setToken],
         auth: [authMe, setAuthMe],
@@ -25,6 +29,8 @@ function Context({ children }) {
         followingVideos: [followingVideos, setFollowingVideos],
         direction: [direction, setDirection],
         uuid: [uuid, setUuid],
+        darkmode: [darkmode, setDarkMode],
+        showKeyboadShort: [showKeyboadShort, setShowKeyboadShort],
     };
     return <ContextProfile.Provider value={data}>{children}</ContextProfile.Provider>;
 }

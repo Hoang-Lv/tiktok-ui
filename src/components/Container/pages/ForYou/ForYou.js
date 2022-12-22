@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import LoadVideo from './LoadVideo';
 import { Consumer } from '~/Context';
@@ -11,8 +11,7 @@ function Home() {
     const [isLogin] = context.isLogin;
     const [token] = context.token;
     const [forYouVideos, setForYouVideos] = context.forYouVideos;
-    let { videoList, index, loadPage } = forYouVideos || {};
-
+    let { videoList, index, loadPage } = forYouVideos;
     const [data, setData] = useState(videoList || []);
     return (
         <div className={cx('home-content')}>

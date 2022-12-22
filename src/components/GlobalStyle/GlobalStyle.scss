@@ -20,16 +20,64 @@
     --header-height: 60px;
     --default-horizontal-spacer: 20px;
     --primary-color: #fe2c55;
-    --text-color: #161823;
     --blur-color: #8a8b90;
-    --white-color: #fff;
     --foxima-fonts: 'Proxima', sans-serif;
     --check: #20d5ec;
+    --white-color: #fff;
+    --gray: rgba(22, 24, 35, 0.06);
+
+    --white-to-black: #fff;
+    --white-to-gray: #fff;
+    --white-to-gray-hover: #fff4f5;
+    --white-to-gray2: #fff;
+    --white-to-gray2-hover: #f8f8f8;
+    --white-to-gray3: #fff;
+    --text-color: rgba(22, 24, 35, 1);
+    --text-gray-to-white: rgba(22, 24, 35, 0.5);
+    --text-gray-to-white2: rgba(22, 24, 35, 0.9);
+    --text-gray-to-white3: rgba(22, 24, 35, 0.9);
+    --gray-to-transparent: #e3e3e4;
+    --gray-to-graydark: rgba(22, 24, 35, 0.06);
+    --gray-to-graydark2: rgba(39, 40, 46, 0.173);
+
+    --search-background: rgba(22, 24, 35, 0.06);
+    --search-btn-background: #ebebeb;
+    --separate: rgba(22, 24, 35, 0.12);
+    --placeholder-color: rgba(92, 92, 92, 0.9);
+    --clear-icon-background: #a6a7ab;
+    --clear-icon-color: #f1f1f2;
+    --scrollbar: rgba(22, 24, 35, 0.06);
 }
+[data-theme='dark-mode']:root {
+    --gray: rgba(255, 255, 255, 0.12);
+    --white-to-black: #121212;
+    --white-to-gray: rgba(255, 255, 255, 0.08);
+    --white-to-gray-hover: rgba(254, 44, 85, 0.06);
+    --white-to-gray2: rgb(37, 37, 37);
+    --white-to-gray2-hover: rgba(255, 255, 255, 0.04);
+    --white-to-gray3: rgb(37, 37, 37);
+    --text-color: rgba(255, 255, 255, 0.9);
+    --text-gray-to-white: rgba(255, 255, 255, 0.75);
+    --text-gray-to-white2: rgba(255, 255, 255, 0.5);
+    --text-gray-to-white3: rgba(255, 255, 255, 0.5);
+    --gray-to-transparent: transparent;
+    --gray-to-graydark: rgba(255, 255, 255, 0.12);
+    --gray-to-graydark2: rgba(255, 255, 255, 0.182);
+
+    --search-background: rgba(255, 255, 255, 0.12);
+    --search-btn-background: rgba(255, 255, 255, 0.04);
+    --separate: rgba(255, 255, 255, 0.12);
+    --placeholder-color: rgba(255, 255, 255, 0.9);
+    --clear-icon-background: #767676;
+    --clear-icon-color: #2f2f2f;
+    --scrollbar: rgba(255, 255, 255, 0.08);
+}
+
 html {
     font-family: var(----foxima-fonts);
     line-height: 1.8rem;
     font-size: 62.5%;
+    background-color: var(--white-to-black);
 }
 
 html *::-webkit-scrollbar {

@@ -11,6 +11,9 @@
     cursor: pointer;
     &.active {
         color: var(--primary-color);
+        .title {
+            color: var(--primary-color);
+        }
         .icon {
             display: none;
         }
@@ -19,7 +22,7 @@
         }
     }
     &:hover {
-        background-color: rgba(22, 24, 35, 0.03);
+        background-color: var(--white-to-gray2-hover);
     }
     .title {
         font-size: 1.8rem;

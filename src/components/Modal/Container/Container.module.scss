@@ -21,8 +21,9 @@
         width: 100%;
         height: 44px;
         margin-bottom: 16px;
-        border: 1px solid #e3e3e4;
+        border: 1px solid var(--gray-to-transparent);
         position: relative;
+        background-color: var(--white-to-gray);
         cursor: pointer;
         .options-icon {
             display: flex;
@@ -101,7 +102,7 @@
                 font-weight: bold;
                 line-height: 2.4rem;
                 &.rule-item_title--all {
-                    color: rgba(22, 24, 35, 0.75);
+                    color: var(--text-gray-to-white);
                     font-weight: 400;
                 }
             }
@@ -136,7 +137,7 @@
         margin-bottom: 4px;
     }
     .descriptions {
-        color: rgba(22, 24, 35, 0.5);
+        color: var(--text-gray-to-white);
         font-size: 14px;
         line-height: 20px;
         margin-bottom: 16px;
@@ -144,7 +145,7 @@
 }
 .register-wrap {
     .register-methods {
-        color: rgb(22, 24, 35);
+        color: var(--placeholder-color);
         font-weight: 600;
         font-size: 15px;
         display: flex;
@@ -152,7 +153,7 @@
         justify-content: space-between;
         margin-bottom: 5px;
         p {
-            color: rgba(22, 24, 35, 0.75);
+            color: var(--text-gray-to-white);
             font-weight: 600;
             font-size: 12px;
             display: inline-block;
@@ -170,10 +171,10 @@
         position: relative;
         input {
             border-radius: 2px;
-            background-color: rgba(22, 24, 35, 0.06);
-            border: 1px solid rgba(22, 24, 35, 0.12);
+            background-color: var(--gray);
+            border: 1px solid var(--separate);
             padding-inline-start: 12px;
-            color: rgb(22, 24, 35);
+            color: var(--text-gray-to-white);
             line-height: 100%;
             outline: none;
             font-size: 16px;
@@ -218,21 +219,21 @@
             position: absolute;
             top: 0px;
             border-radius: unset;
-            border: 1px solid rgba(22, 24, 35, 0.2);
+            border: 1px solid var(--separate);
             margin-inline-end: 8px;
             display: inline-block;
-            background: rgb(255, 255, 255);
+            background: var(--white-to-black);
             transition: all 0.1s ease 0s;
             padding: 3px 0px;
             text-align: center;
             width: 22px;
             height: 22px;
             font-size: 0;
-            color: var(--white-color);
+            color: var(--white-to-black);
         }
     }
     .description {
-        color: rgba(22, 24, 35, 0.75);
+        color: var(--text-gray-to-white);
         font-family: 'IBM Plex Sans', ProximaNova, Arial, Tahoma, PingFangSC, sans-serif;
         font-size: 12px;
         line-height: 16px;
@@ -250,8 +251,8 @@
     width: 100%;
     border: none;
     border-radius: 4px;
-    color: rgba(22, 24, 35, 0.34);
-    background-color: rgba(22, 24, 35, 0.06);
+    color: var(--text-gray-to-white3);
+    background-color: var(--gray);
     transition: all 0.1s linear;
     &.submit_account {
         background-color: var(--primary-color);
@@ -260,7 +261,7 @@
     }
 }
 .tiktok-id_create-title {
-    color: rgb(22, 24, 35);
+    color: var(--placerholder-color);
     font-weight: 600;
     font-size: 15px;
     display: flex;
@@ -271,10 +272,10 @@
 .tiktok-id_input {
     margin: 6px 0;
     border-radius: 2px;
-    background-color: rgba(22, 24, 35, 0.06);
-    border: 1px solid rgba(22, 24, 35, 0.12);
+    background-color: var(--gray);
+    border: 1px solid var(--separate);
     padding-inline-start: 12px;
-    color: rgb(22, 24, 35);
+    color: var(--placerholder-color);
     line-height: 100%;
     outline: none;
     font-size: 16px;
@@ -284,7 +285,7 @@
     padding-inline-end: unset;
 }
 .tiktok-id_descriptions {
-    color: rgba(22, 24, 35, 0.5);
+    color: var(--text-gray-to-white);
     font-size: 14px;
     line-height: 20px;
 }
@@ -298,12 +299,12 @@
     width: 100%;
     border: none;
     border-radius: 4px;
-    color: rgba(22, 24, 35, 0.34);
-    background-color: rgba(22, 24, 35, 0.06);
+    color: var(--text-gray-to-white3);
+    background-color: var(--gray);
     transition: all 0.1s linear;
     &.active {
         background-color: var(--primary-color);
-        color: var(--white-color);
+        color: var(--white-to-black);
         cursor: pointer;
     }
 }

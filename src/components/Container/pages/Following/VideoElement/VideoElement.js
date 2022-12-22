@@ -145,7 +145,7 @@ function VideoElement({
                         className={cx('video')}
                         style={height >= width ? { maxHeight: 520, height: 520 } : { maxWidth: 520, width: 520 }}
                     >
-                        <Link to={`${config.routes.video}${data.uuid}`} className={cx('video-link')}>
+                        <Link to={`${config.routes.video}`} className={cx('video-link')}>
                             <video
                                 id={`video-${index}`}
                                 muted={muted}
